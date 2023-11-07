@@ -12,7 +12,71 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.HeadTab{
+  background-color: #18a56a;
+  min-height: 15vh;
+}
+.Title{
+  position: absolute;
+  top: 80px;
+  font-size: 35px;
 
+
+}
+#ButtonHead1{
+  position: absolute;
+  color: rgba(255, 255, 255, 0.509);
+  border: none;
+  background-color: #18a56a;
+  top : 10px;
+  left: 15%;
+  font-size:  35px;
+  padding: 10px 20px;
+}
+#ButtonHead1:hover{
+  background-color: #19c37d;
+  color: rgba(255, 255, 255, 0.653);
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+  border-radius: 15% 15% 15% 15%;
+}
+#ButtonHead2{
+  position: absolute;
+  color: rgba(255, 255, 255, 0.509);
+  border: none;
+  background-color: #18a56a;
+  left: 43%;
+  top: 10px;
+  font-size:  35px;
+  padding: 10px 20px;
+}
+#ButtonHead2:hover{
+  background-color: #19c37d;
+  color: rgba(255, 255, 255, 0.653);
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+  border-radius: 15% 15% 15% 15%;
+}
+#ButtonHead3{
+  position: absolute;
+  color: rgba(255, 255, 255, 0.509);
+  border: none;
+  background-color: #18a56a;
+  right: 15%;
+  top: 10px;
+  font-size:  35px;
+  padding: 10px 20px;
+}
+#ButtonHead3:hover{
+  background-color: #19c37d;
+  color: rgba(255, 255, 255, 0.653);
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+  border-radius: 15% 15% 15% 15%;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -24,6 +88,37 @@
   color: white;
 }
 
+.boxInputImage {
+  position: absolute;
+  left: 100px;
+  bottom: 0px;
+  width: 270px;
+  height: 338px;
+  background-color: #9aa0a915;
+  border: none;
+  outline: none;
+  padding: 10px 14px;
+  text-align: center;
+}
+.boxInputImage:hover{
+  background-color: #9aa0a974;
+}
+.boxResult{
+  position: absolute;
+  
+  right: 0px;
+  width: 400px;
+  height: 300px;
+  border: #61dafb;
+  outline: #61dafb;
+  padding: 10px 14px;
+  background-color: #282c34;
+  border-radius: 10% 10% 10% 10%;
+
+}
+.boxResult:hover{
+  background-color: #9aa0a91f;
+}
 .App-link {
   color: #61dafb;
 }
