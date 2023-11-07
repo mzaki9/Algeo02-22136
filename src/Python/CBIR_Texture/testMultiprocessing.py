@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import time
 import os
+from multiprocessing import Pool
 
 
 def cbirTexture(image):
@@ -70,37 +71,39 @@ def cosineSim(vector1, vector2):
     return dotProduct / (A * B)
 
 
+def process_image(args):
+    image_name, dataset_path, reference_vector = args
+    image_path = os.path.join(dataset_path, image_name)
+    image = cv2.imread(image_path)
+    image_vector = cbirTexture(image)
+    similarity_score = cosineSim(reference_vector, image_vector)
+    return (image_name, similarity_score)
+
+
 def main():
-    reference_image_path = 'ISI REFERENSI'
+    reference_image_path = 'referensi'
     reference_image = cv2.imread(reference_image_path)
     reference_vector = cbirTexture(reference_image)
 
-    dataset_path = 'ISI PATH DATASET'
+    dataset_path = 'ISI PATH DISINI'
     dataset_images = os.listdir(dataset_path)
 
-    similarity_scores = {}
+    start_time = time.time()  
 
-    start_time = time.time()
+    with Pool() as p:
+        results = p.map(process_image, [(image_name, dataset_path, reference_vector) for image_name in dataset_images])
 
-    for image_name in dataset_images:
-        image_path = os.path.join(dataset_path, image_name)
-        image = cv2.imread(image_path)
-        image_vector = cbirTexture(image)
-        similarity_score = cosineSim(reference_vector, image_vector)
-        similarity_scores[image_name] = similarity_score
+    end_time = time.time() 
 
-    end_time = time.time()
-
-    execution_time = end_time - start_time
-    print("Execution Time: {:.2f} seconds".format(execution_time))
+    similarity_scores = {image_name: similarity_score for image_name, similarity_score in results}
 
 
     sorted_similarity_scores = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=True)
     for image_name, similarity_score in sorted_similarity_scores:
         print(f"Image: {image_name}, Similarity: {similarity_score * 100:.2f}%")
 
+    print("Execution Time: {:.2f} seconds".format(end_time - start_time))  
 if __name__ == "__main__":
     main()
 
-    
 
