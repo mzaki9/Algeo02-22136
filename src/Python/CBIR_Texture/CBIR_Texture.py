@@ -1,5 +1,8 @@
 import cv2
 import numpy as np
+import time
+import os
+
 
 def cbirTexture(image):
     # Hitung gambar grayscale dengan rumus yang diberikan
@@ -22,6 +25,7 @@ def cbirTexture(image):
     #cari matrix yang telah di normalisasi
     if np.sum(symMatrix) > 0:
         glcmNorm = symMatrix / np.sum(symMatrix)
+
 
     #hitung contrastnya
     contrast = calculateContrast(glcmNorm)
@@ -64,3 +68,40 @@ def cosineSim(vector1, vector2):
     A = np.sqrt(np.sum(vector1 ** 2))
     B = np.sqrt(np.sum(vector2 ** 2))
     return dotProduct / (A * B)
+
+
+def main():
+    reference_image_path = 'ISI REFERENSI'
+    reference_image = cv2.imread(reference_image_path)
+    reference_vector = cbirTexture(reference_image)
+
+    dataset_path = 'ISI PATH DATASET'
+    dataset_images = os.listdir(dataset_path)
+
+    similarity_scores = {}
+
+    start_time = time.time()
+
+    for image_name in dataset_images:
+        image_path = os.path.join(dataset_path, image_name)
+        image = cv2.imread(image_path)
+        image_vector = cbirTexture(image)
+        similarity_score = cosineSim(reference_vector, image_vector)
+        similarity_scores[image_name] = similarity_score
+
+    end_time = time.time()
+
+    execution_time = end_time - start_time
+    print("Execution Time: {:.2f} seconds".format(execution_time))
+
+
+    sorted_similarity_scores = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=True)
+    for image_name, similarity_score in sorted_similarity_scores:
+        print(f"Image: {image_name}, Similarity: {similarity_score * 100:.2f}%")
+
+if __name__ == "__main__":
+    main()
+
+    
+
+
