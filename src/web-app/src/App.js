@@ -15,6 +15,12 @@ function App() {
         <div class="boxInputImage">
           <p>ceritanya gambar input</p>
         </div>
+        <div class="uploadImageButton">
+          <div>
+          <ImageUpload></ImageUpload>
+          </div>
+
+        </div>
        <div class="boxResult">
           <p>hasil</p>
        </div>
