@@ -95,6 +95,8 @@ def cosineSim(vector1, vector2):
     A = np.sqrt(np.sum(vector1 ** 2))
     B = np.sqrt(np.sum(vector2 ** 2))
     return dotProduct / (A * B)
+<<<<<<< HEAD
+=======
 
 
 def main():
@@ -119,3 +121,4 @@ if __name__ == "__main__":
     
 
 
+>>>>>>> 7fb78aebfcf1675ba95accdec6b0febd79c74d8c
