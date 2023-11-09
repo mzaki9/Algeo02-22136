@@ -2,42 +2,6 @@ import numpy as np
 import cv2
 import time
 
-def denormalisasiWarna(Matrix_RGB):
-    hasil = Matrix_RGB / 255
-    return hasil
-
-def Hue(R_d, G_d, B_d):
-    C_max = max(R_d, G_d, B_d)
-    C_min = min(R_d, G_d, B_d)
-    delta = C_max - C_min
-
-    # Menghitung nilai H dalam derajat
-    if (delta == 0):
-        return 0
-    elif C_max == R_d:
-        H = 60 * (((G_d - B_d) / delta) % 6)
-    elif C_max == G_d:
-        H = 60 * (((B_d - R_d) / delta) + 2)
-    elif C_max == B_d:
-        H = 60 * (((R_d - G_d) / delta) + 4)
-    return H
-
-def Saturation(R_d, G_d, B_d):
-    C_max = max(R_d, G_d, B_d)
-    C_min = min(R_d, G_d, B_d)
-    delta = C_max - C_min
-
-    # Menghitung nilai H dalam derajat
-    if C_max == 0:
-        return 0
-    else:
-        S = delta / C_max
-        return S
-
-def Value(R_d, G_d, B_d):
-    C_max = max(R_d, G_d, B_d)
-    return C_max
-
 def img_to_matrix_RGB(image_path):
     # Baca gambar menggunakan OpenCV
     img = cv2.imread(image_path)
@@ -45,29 +9,105 @@ def img_to_matrix_RGB(image_path):
     # Ubah format warna dari BGR ke RGB
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
+    # Konversi ke tipe data float
+    img_rgb = img_rgb.astype(np.float32)
+
+    img_rgb /= 255.0
     return img_rgb
 
-def img_to_Matrix_HSV(img_path):
-    # Mengubah img ke list RGB
-    Matrix_RGB = img_to_matrix_RGB(img_path)
+def matrix_rgb_to_hist(image):
+    # Membagi matrix image menjadi 3 matrix representasi rred, green, blue
+    r,g,b = image[:,:,0], image[:,:,1], image[:,:,2]
 
-    # Menghitung List_Denorm_RGB
-    Matrix_Denorm_RGB = denormalisasiWarna(Matrix_RGB)
+    # Mencari cmax, cmin, delta
+    cmax = np.max(image, axis=2)
+    cmin = np.min(image, axis=2)
+    delta = (cmax-cmin)
 
-    # Menghitung panjang baris dan kolom array_denorm_RGB
-    len_baris, len_kolom, len_pixel = Matrix_Denorm_RGB.shape
-    
-    Matrix_HSV = np.zeros((len_baris, len_kolom, len_pixel))
+    # Inisialisasi matrix h,s,v
+    h = np.zeros_like(r)
+    s = np.zeros_like(r)
+    v = np.zeros_like(r)
 
-    # Menghitung matriks HSV secara vektorisasi
-    for i in range(len_baris):
-        for j in range(len_kolom):
-            R_d, G_d, B_d = Matrix_Denorm_RGB[i, j]
-            Matrix_HSV[i, j, 0] = Hue(R_d, G_d, B_d)
-            Matrix_HSV[i, j, 1] = Saturation(R_d, G_d, B_d)
-            Matrix_HSV[i, j, 2] = Value(R_d, G_d, B_d)
-    
-    return Matrix_HSV
+    # Membuat mask untuk r g b untuk h
+    mask_r = np.logical_and(delta !=0, cmax==r)
+    mask_g = np.logical_and(delta !=0, cmax==g)
+    mask_b = np.logical_and(delta !=0, cmax==b)
+
+    # Menghitung nilai h
+    h[delta == 0] = 0
+    h[mask_r] = 60*(((g[mask_r] -b[mask_r])/(delta[mask_r]))%6)
+    h[mask_g] = 60*(((g[mask_g] -b[mask_g])/(delta[mask_g]))+2)
+    h[mask_b] = 60*(((g[mask_b] -b[mask_b])/(delta[mask_b]))+4)
+
+    # Hitung nilai s
+    s[cmax == 0] = 0
+    s[cmax != 0] = (delta[cmax != 0]) / (cmax[cmax != 0])
+
+
+    # Hitung nilai v
+    v = np.maximum.reduce([r,g,b])
+
+    # Menggunakan procedure quantify
+    quantify(h,s,v)
+
+
+    # Mencari histogram h,s,v
+    hist_h = cv2.calcHist([h],[0], None, [8], [0,7]).flatten()
+    hist_s = cv2.calcHist([s],[0], None, [3], [0,2]).flatten()
+    hist_v = cv2.calcHist([v],[0], None, [3], [0,2]).flatten()
+    # print("h")
+    # print(h)
+    # print("s")
+    # print(s)
+    # print("v")
+    # print(v)
+    # Menyatukan ke 3 histogram
+    hist = np.concatenate((hist_h,hist_s,hist_v), axis=0)
+
+    return hist
+
+def quantify(h,s,v):
+    # Quantify h
+    h[h >= 316] = 0
+    h[np.logical_and(h >= 1, h <= 25)] = 1
+    h[np.logical_and(h >= 26, h <= 40)] = 2
+    h[np.logical_and(h >= 41, h <= 120)] = 3
+    h[np.logical_and(h >= 121, h <= 190)] = 4
+    h[np.logical_and(h >= 191, h <= 270)] = 5
+    h[np.logical_and(h >= 271, h <= 295)] = 6
+    h[np.logical_and(h >= 296, h <= 315)] = 7
+
+    # Quantify s
+    s[s < 0.2] = 0
+    s[np.logical_and(s >= 0.2, s < 0.7)] = 1
+    s[s >= 0.7] = 2
+
+    # Quantify v
+    v[v < 0.2] = 0
+    v[np.logical_and(v >= 0.2, v < 0.7)] = 1
+    v[v >= 0.7] = 2
+
+def create_submatrices(matrix):
+    len_rows, len_cols, _ = matrix.shape
+
+    # Tentukan batas indeks untuk pembagian
+    row_splits = [0, len_rows // 3, 2 * len_rows // 3, len_rows]
+    col_splits = [0, len_cols // 3, 2 * len_cols // 3, len_cols]
+
+    # Inisialisasi daftar untuk menyimpan submatriks
+    submatrices = []
+
+    # Loop melalui bagian-bagian matriks dan potong sesuai batas indeks
+    for i in range(3):
+        for j in range(3):
+            start_row, end_row = row_splits[i], row_splits[i + 1]
+            start_col, end_col = col_splits[j], col_splits[j + 1]
+
+            submatrix = matrix[start_row:end_row, start_col:end_col]
+            submatrices.append(submatrix)
+
+    return submatrices
 
 def cosinesim(vector_A, vector_B):
     # Hitung dot product antara dua vektor
@@ -82,106 +122,31 @@ def cosinesim(vector_A, vector_B):
 
     return similarity
 
-def quantify(h,s,v):
-    # Mengubah range hsv
-    # range h menjadi [0,7]
-    # range s menjadi [0,2]
-    # range v menjadi [0,2]
-    if(h>=316):
-        h = 0
-    elif(h>=1 and h<= 25):
-        h = 1
-    elif(h>=26 and h<= 40):
-        h = 2
-    elif(h>=41 and h<= 120):
-        h = 3
-    elif(h>=121 and h<= 190):
-        h = 4
-    elif(h>=191 and h<= 270):
-        h = 5
-    elif(h>=271 and h<= 295):
-        h = 6
-    else:
-        h = 7
-    if(s>=0 and s<0.2):
-        s = 0
-    elif(s>=0.2 and s<0.7):
-        s = 1
-    else:
-        s = 2
-    if(v>=0 and v<0.2):
-        v = 0
-    elif(v>=0.2 and v<0.7):
-        v = 1
-    else:
-        v = 2
-    return h,s,v
-
-def histogram(Matrix):
-    Hist = np.zeros(14, dtype=int)
-
-    # Pisahkan Matrix mejadi 3 matrix yang melambangkan H,S, dan V
-    H_channel = Matrix[:,:,0]
-    S_channel = Matrix[:,:,1]
-    V_channel = Matrix[:,:,2]
-    # Mencari panjang Matrix
-    len_baris, len_kolom = H_channel.shape
-
-    for i in range(len_baris):
-        for j in range(len_kolom):
-            Hist[round(H_channel[i,j])] += 1
-            Hist[round(S_channel[i,j])+8] += 1
-            Hist[round(V_channel[i,j])+11] += 1
-
-    return Hist
 def CBIR_Warna(img_path_1, img_path_2):
-    # Mencari Matrix HSV dari img path
-    Matrix1 = img_to_Matrix_HSV(img_path_1)
-    Matrix2 = img_to_Matrix_HSV(img_path_2)
+    Matrix1 = img_to_matrix_RGB(img_path_1)
+    Matrix2 = img_to_matrix_RGB(img_path_2)
 
-    # mengubah range HSV dengan fungsi quantify
-    process_matrix(Matrix1)
-    process_matrix(Matrix2)
+    m_matriks = create_submatrices(Matrix1)
+    n_matriks = create_submatrices(Matrix2)
 
-    # Mengubah matrix menjadi matrix yang lebih kecil dengan menggunakan matrix slicing
-    m_matrices = create_submatrices(Matrix1)
-    n_matrices = create_submatrices(Matrix2)
+    vektor1 = [matrix_rgb_to_hist(matrix) for matrix in m_matriks]
+    vektor2 = [matrix_rgb_to_hist(matrix) for matrix in n_matriks]
 
-    # Mencari histogram matrix nya
-    VektorA = [histogram(matrix) for matrix in m_matrices]
-    VektorB = [histogram(matrix) for matrix in n_matrices]
-
-    # Mencari nilai cosine similarity
-    similarities = [cosinesim(VektorA[i], VektorB[i]) for i in range(len(VektorA))]
+    similarity = [cosinesim(vektor1[i],vektor2[i]) for i in range(len(vektor1))]
 
     # Mencari nilai rata rata dari cosine Similarity
-    result = sum(similarities) / len(similarities) * 100
+    result = sum(similarity) / len(similarity) * 100
     return round(result)
 
-def process_matrix(matrix):
-    len_baris, len_kolom, _ = matrix.shape
+def main():
+    path1 = 'ref 1'
+    path2 = 'ref 2'
 
-    for i in range(len_baris):
-        for j in range(len_kolom):
-            h, s, v = matrix[i, j]
-            matrix[i, j] = quantify(h, s, v)
+    start_time = time.time()
+    # Melakukan compare antara 2 image dengan menggunakan CBIR warna
+    persentase_kesamaan = CBIR_Warna(path1,path2)
 
-def create_submatrices(matrix):
-    len_baris, len_kolom, _ = matrix.shape
-    submatrices = []
-    start_rows = [(i * len_baris) // 3 for i in range(3)]
-    end_rows = [((i + 1) * len_baris) // 3 for i in range(3)]
-    start_cols = [(j * len_kolom) // 3 for j in range(3)]
-    end_cols = [((j + 1) * len_kolom) // 3 for j in range(3)]
-
-    for i in range(3):
-        for j in range(3):
-            start_row = start_rows[i]
-            end_row = end_rows[i]
-            start_col = start_cols[j]
-            end_col = end_cols[j]
-
-            submatrix = matrix[start_row:end_row, start_col:end_col]
-            submatrices.append(submatrix)
-
-    return submatrices
+     # Print persentase kesamaan
+    print("Persentase Kesamaan (dalam persen):", persentase_kesamaan)
+    end_time = time.time()
+    print("Execution Time: {:.2f} seconds".format(end_time - start_time))
