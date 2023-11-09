@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import time
 import os
+from multiprocessing import Pool
 
 def compress_image(image, compression_scale=0.75, quality=85):
     # Mengkompresi gambar dengan skala tertentu
@@ -17,9 +18,9 @@ def cbirTexture(image):
     # Mendekompresi gambar
     decompressed_image = cv2.imdecode(compressed_image_data, cv2.IMREAD_COLOR)
 
-    greyImage = 0.29 * decompressed_image[..., 2] + 0.587 * decompressed_image[..., 1] + 0.114 * decompressed_image[..., 0]
+    greyImage = cv2.cvtColor(decompressed_image, cv2.COLOR_BGR2GRAY)
 
-    greyImage = greyImage.astype(np.uint8)
+
 
     #buat matrix framework
     coOccurence = np.zeros((256, 256))
@@ -87,7 +88,6 @@ def calculateContrast(glcmNorm):
 
     # Hitung contrast
     contrast = np.sum(((i - j) ** 2) * glcmNorm)
-    print(contrast)
     return contrast
 
 def cosineSim(vector1, vector2):
@@ -95,30 +95,45 @@ def cosineSim(vector1, vector2):
     A = np.sqrt(np.sum(vector1 ** 2))
     B = np.sqrt(np.sum(vector2 ** 2))
     return dotProduct / (A * B)
-<<<<<<< HEAD
-=======
+
+
+def process_image(args):
+    image_name, dataset_path, reference_vector = args
+    image_path = os.path.join(dataset_path, image_name)
+    image = cv2.imread(image_path)
+    image_vector = cbirTexture(image)
+    similarity_score = cosineSim(reference_vector, image_vector)
+    return (image_name, similarity_score)
 
 
 def main():
-    path1 = 'ref 1'
-    path2 = 'ref 2'
-    image1 = cv2.imread(path1)
-    image2 = cv2.imread(path2)
-    start_time = time.time()
-    vector1 = cbirTexture(image1)
-    vector2 = cbirTexture(image2)
-    hasil = cosineSim(vector1, vector2)
-    persentase_kesamaan = (hasil)*100
+    reference_image_path = 'isi REFERENCE IMAGE'
+    reference_image = cv2.imread(reference_image_path)
+    reference_vector = cbirTexture(reference_image)
 
-    # Print persentase kesamaan
-    print("Persentase Kesamaan (dalam persen):", persentase_kesamaan)
-    end_time = time.time()
-    print("Execution Time: {:.2f} seconds".format(end_time - start_time))  
+    dataset_path = 'isi folder dataset'
+    dataset_images = os.listdir(dataset_path)
+
+    start_time = time.time()  
+
+    with Pool() as p:
+        results = p.map(process_image, [(image_name, dataset_path, reference_vector) for image_name in dataset_images])
+
+    end_time = time.time() 
+
+    similarity_scores = {image_name: similarity_score for image_name, similarity_score in results}
+
+
+    sorted_similarity_scores = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=True)
+    for image_name, similarity_score in sorted_similarity_scores:
+        print(f"Image: {image_name}, Similarity: {similarity_score * 100:.2f}%")
+
+    print("Execution Time: {:.2f} seconds".format(end_time - start_time)) 
 
 if __name__ == "__main__":
     main()
 
-    
 
 
->>>>>>> 7fb78aebfcf1675ba95accdec6b0febd79c74d8c
+
+
