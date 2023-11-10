@@ -1,31 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
 import './ImageUpload'
 import ImageUpload from './ImageUpload';
+import InputBox from './inputBox';
 function App() {
   return (
-    <div className="App" >
+      <div className="App-header">
       <div className="HeadTab">
           <button id="ButtonHead1"> About us</button>
           <button id="ButtonHead2">camera</button>
           <button id="ButtonHead3">help</button>
       </div>
-      <header className="App-header">
-        <h1 class="Title">Sistem Temu Balik Gambar</h1>
-        <div class="boxInputImage">
-          <p>ceritanya gambar input</p>
+      <body>
+        <div class="boxResult">
         </div>
-        <div class="uploadImageButton">
-          <div>
-          <ImageUpload></ImageUpload>
-          </div>
-
-        </div>
-       <div class="boxResult">
-          <p>hasil</p>
-       </div>
-      </header>
-    </div>
+        <InputBox/>
+      </body>
+      </div>
   );
 }
 

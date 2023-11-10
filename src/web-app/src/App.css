@@ -13,6 +13,9 @@
   }
 }
 .HeadTab{
+  position: absolute;
+  width: 100vw;
+  top:0px;
   background-color: #18a56a;
   min-height: 15vh;
 }
@@ -87,15 +90,23 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.App-body{
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
 
 .boxInputImage {
-  position: absolute;
-  left: 60px;
-  bottom: 25px;
-  width: 270px;
-  height: 338px;
-  background-color: #9aa0a915;
-  border: 2px solid #19c37d;
+  position: relative;
+  top: 5vh;
+  right: 25vw;
+  width: 400px;
+  height: 400px;
+  background-color: #e6e7e7e9;
+  border: 3px solid #19c37d;
   outline: none;
   padding: 10px 14px;
   text-align: center;
