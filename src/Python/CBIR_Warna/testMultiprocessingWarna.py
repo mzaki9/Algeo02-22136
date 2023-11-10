@@ -1,6 +1,8 @@
 import numpy as np
 import cv2
 import time
+import os
+from multiprocessing import Pool
 
 def img_to_matrix_RGB(image_path):
     # Baca gambar menggunakan OpenCV
@@ -51,18 +53,10 @@ def matrix_rgb_to_hist(image):
     # Menggunakan procedure quantify
     quantify(h,s,v)
 
-
     # Mencari histogram h,s,v
     hist_h = cv2.calcHist([h],[0], None, [8], [0,7]).flatten()
     hist_s = cv2.calcHist([s],[0], None, [3], [0,2]).flatten()
     hist_v = cv2.calcHist([v],[0], None, [3], [0,2]).flatten()
-    # print("h")
-    # print(h)
-    # print("s")
-    # print(s)
-    # print("v")
-    # print(v)
-    # Menyatukan ke 3 histogram
     hist = np.concatenate((hist_h,hist_s,hist_v), axis=0)
 
     return hist
@@ -135,18 +129,36 @@ def CBIR_Warna(img_path_1, img_path_2):
     similarity = [cosinesim(vektor1[i],vektor2[i]) for i in range(len(vektor1))]
 
     # Mencari nilai rata rata dari cosine Similarity
-    result = sum(similarity) / len(similarity) * 100
-    return round(result)
+    result = sum(similarity) / len(similarity)
+    return result
+
+def process_image(args):
+    image_name, dataset_path, reference_image_path = args
+    image_path = os.path.join(dataset_path, image_name)
+    similarity_score = CBIR_Warna(reference_image_path, image_path)
+    return (image_name, similarity_score)
 
 def main():
-    path1 = 'ref 1'
-    path2 = 'ref 2'
+    reference_image_path = 'isi REFERENCE IMAGE'
 
-    start_time = time.time()
-    # Melakukan compare antara 2 image dengan menggunakan CBIR warna
-    persentase_kesamaan = CBIR_Warna(path1,path2)
+    dataset_path = 'isi folder dataset'
+    dataset_images = os.listdir(dataset_path)
 
-     # Print persentase kesamaan
-    print("Persentase Kesamaan (dalam persen):", persentase_kesamaan)
-    end_time = time.time()
-    print("Execution Time: {:.2f} seconds".format(end_time - start_time))
+    start_time = time.time()  
+
+    with Pool() as p:
+        results = p.map(process_image, [(image_name, dataset_path, reference_image_path) for image_name in dataset_images])
+
+    end_time = time.time() 
+
+    similarity_scores = {image_name: similarity_score for image_name, similarity_score in results}
+
+
+    sorted_similarity_scores = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=True)
+    for image_name, similarity_score in sorted_similarity_scores:
+        print(f"Image: {image_name}, Similarity: {similarity_score * 100:.2f}%")
+
+    print("Execution Time: {:.2f} seconds".format(end_time - start_time)) 
+
+if __name__ == "__main__":
+    main()
