@@ -133,21 +133,30 @@ def CBIR_Warna(img_path_1, img_path_2):
     return result
 
 def process_image(args):
-    image_name, dataset_path, reference_image_path = args
+    image_name, dataset_path, vektor_reference = args
     image_path = os.path.join(dataset_path, image_name)
-    similarity_score = CBIR_Warna(reference_image_path, image_path)
+    matrix = img_to_matrix_RGB(image_path)
+    n_matrix = create_submatrices(matrix)
+    vektor = [matrix_rgb_to_hist(matrix) for matrix in n_matrix]
+    
+    similarity = [cosinesim(vektor_reference[i],vektor[i]) for i in range(len(vektor_reference))]
+    similarity_score = sum(similarity) / len(similarity)
+
     return (image_name, similarity_score)
 
 def main():
-    reference_image_path = 'isi REFERENCE IMAGE'
+    reference_image_path = 'ISI REFERENSI IMAGE'
+    matrix_reference = img_to_matrix_RGB(reference_image_path)
+    m_matrix_reference = create_submatrices(matrix_reference)
+    vektor_reference = [matrix_rgb_to_hist(matrix) for matrix in m_matrix_reference]
 
-    dataset_path = 'isi folder dataset'
+    dataset_path = 'NAMA FOLDER DATASET'
     dataset_images = os.listdir(dataset_path)
 
     start_time = time.time()  
 
     with Pool() as p:
-        results = p.map(process_image, [(image_name, dataset_path, reference_image_path) for image_name in dataset_images])
+        results = p.map(process_image, [(image_name, dataset_path, vektor_reference) for image_name in dataset_images])
 
     end_time = time.time() 
 
