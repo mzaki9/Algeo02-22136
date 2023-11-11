@@ -1,8 +1,12 @@
 import React from "react";
-class DataSetBox extends React{
+import MultiImageUpload from "./multiImageUpload";
+class DataSetBox extends React.Component{
     render(){
         return(
-            <h1>hello</h1>
+            <div className="uploadDataSetButton">
+                <MultiImageUpload></MultiImageUpload>
+            </div>
         );
     }
 }
+export default DataSetBox;

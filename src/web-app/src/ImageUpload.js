@@ -26,9 +26,7 @@ function ImageUpload(){
     };
     return (
       <div>
-          <div onClick={handleClick} style={{textAlign:'center',
-          position:'relative',right:'60px',
-          height:'400px',width:'400px',cursor:'pointer',right:'100px',top:'150px'}}>
+          <div onClick={handleClick} style={{cursor:'pointer'}}>
             Upload a file
           </div>
           <input
@@ -37,15 +35,11 @@ function ImageUpload(){
             style={{display:'none'}}
             onChange={handleFile}
           />
-          {file && (
-             <div style={{
-               padding: '10px',
-               marginTop: '10px',
-               textAlign: 'center',
-             }}
-           >
-            <img src={file} alt="Uploaded" style={{position:'relative',minHeight:'240px',minWidth:'240px', maxHeight:'400px',maxWidth:'400px',right:'80px'}}></img>
-            </div>
+            {file && (
+            <img src={file} alt="Uploaded" style={{position:'relative',
+            minHeight:'240px',minWidth:'240px', maxHeight:'400px',maxWidth:'400px',bottom:'390px'}}/>
+
+
           )}
         </div>
     );

@@ -91,8 +91,9 @@
   color: white;
 }
 .App-body{
-  background-color: #282c34;
+  background-color: #1a1c21;
   min-height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   font-size: calc(10px + 2vmin);
@@ -101,39 +102,57 @@
 
 .boxInputImage {
   position: relative;
-  top: 5vh;
+  top: 40vh;
   right: 25vw;
   width: 400px;
   height: 400px;
-  background-color: #e6e7e7e9;
-  border: 3px solid #19c37d;
+  background-color: #363a43;
+  border: 3px solid #18a56aa4;
   outline: none;
   padding: 10px 14px;
+  border-radius: 10% 10% 10% 10%;
   text-align: center;
 }
 .boxInputImage:hover{
   background-color: #9aa0a974;
+  border: 5px solid #19c37d;
 }
-.boxResult{
-  position: absolute;
-  
-  right: 0px;
-  width: 400px;
-  height: 300px;
-  border: 2px solid #61dafba8;
-  outline: #61dafb;
+.dataBox{
+  position: relative;
+  top: 70vh;
+  left: 23vw;
+  width: 600px;
+  height: 400px;
+  background-color: #363a43;
+  border: 3px solid rgba(146, 31, 191, 0.801);
+  outline: none;
   padding: 10px 14px;
-  background-color: #282c34;
   border-radius: 10% 10% 10% 10%;
+  text-align: center;
+}
+.dataBox:hover{
+  background-color: #3b3f45d5;
+  border: 5px solid rgba(173, 65, 216, 0.801);
+}
+
+.uploadImageButton{
+  position: relative;
+  height:400px;
+  width:400px;
+  bottom: 12vh;
+  text-align: center;
+  line-height: 400px;
+  font-size: calc(10px + 2vmin);
 
 }
-.boxResult:hover{
-  background-color: #3b3f451f;
-}
-.uploadImageButton{
-  position: absolute;
-  left: 100px;
-  bottom:0px;
+.uploadDataSetButton{
+  position: relative;
+  height:400px;
+  width:600px;
+  bottom: 12vh;
+  text-align: center;
+  line-height: 400px;
+  font-size: calc(10px + 2vmin);
 
 }
 .App-link {

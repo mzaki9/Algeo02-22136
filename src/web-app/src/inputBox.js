@@ -3,7 +3,7 @@ import ImageUpload from "./ImageUpload";
 class InputBox extends React.Component{
     render() {
         return(
-            <div className="boxInputImage">
+            <div>
                 <div className="uploadImageButton">
                     <ImageUpload></ImageUpload>
                 </div>
