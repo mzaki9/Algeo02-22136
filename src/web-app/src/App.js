@@ -10,11 +10,9 @@ function App() {
           <button id="ButtonHead2">camera</button>
           <button id="ButtonHead3">help</button>
       </div>
-      <body>
-        <div class="boxResult">
-        </div>
-        <InputBox/>
-      </body>
+      <div className="boxResult">
+      </div>
+      <InputBox/>
       </div>
   );
 }
