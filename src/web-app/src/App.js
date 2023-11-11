@@ -17,10 +17,17 @@ function App() {
           </InputBox>
         </div>
         <div  className="dataBox">
-        <h2 style={{position:'relative',left:'10vw',bottom:'15vh',color:'white',fontSize:'4vh'}}> Input The Data Set</h2>
+          <h2 style={{position:'relative',left:'10vw',bottom:'15vh',color:'white',fontSize:'4vh'}}> Input The Data Set</h2>
           <DataSetBox/>
         </div>
-        
+        <div className="resultBox">
+          <h3 style={{position:'relative',left:'35vw',bottom:'12vh',color:'white',fontSize:'3vh'}}>
+              (time: Undefined yet)
+          </h3>
+          <h3 style={{position:'relative',right:'40vw',bottom:'20vh',color:'white',fontSize:'4vh'}}>
+              The Result
+          </h3>
+        </div>
       </div>
   );
 }

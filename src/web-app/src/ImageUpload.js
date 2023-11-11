@@ -26,7 +26,7 @@ function ImageUpload(){
     };
     return (
       <div>
-          <div onClick={handleClick} style={{cursor:'pointer'}}>
+          <div onClick={handleClick} style={{cursor:'pointer', opacity:'0.25'}}>
             Upload a file
           </div>
           <input

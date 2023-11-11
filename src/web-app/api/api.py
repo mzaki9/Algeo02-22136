@@ -8,40 +8,38 @@ CORS(app)
 api = Api(app)
 app.config['MAX_CONTENT_LENGTH'] = 5000 * 1024 * 1024
 class ImageUploadResource(Resource):
-    def post(self):
-        # Check if the POST request has a file part
+    def post(self): #post method
+        #file validty
         if 'file' not in request.files:
             return {'error': 'No file part'}, 400
-
-        file = request.files['file']
-
-        # If the user does not select a file, the browser may submit an empty part without a filename
+        file = request.files['file'] #the file
         if file.filename == '':
             return {'error': 'No selected file'}, 400
 
-        # Save the uploaded file to a folder\
-        if (os.path.exists('../uploads')):
+        if (os.path.exists('../uploads')): #delete if there was already a folder
             shutil.rmtree('../uploads')
-        os.makedirs('../uploads')
-        file.save('../uploads/' + file.filename)
+        os.makedirs('../uploads') #create folder
+        file.save('../uploads/' + file.filename) #save file
 
         return {'message': 'File uploaded successfully'}, 201
+    
 class MultiImageResource(Resource):
     def post(self):
-        # Check if the POST request has a file part
+        #file validty v1
         if 'files' not in request.files:
             return {'error': 'No file part'}, 400
 
-        files = request.files.getlist('files')
-        if (os.path.exists('../DataSet')):
+        files = request.files.getlist('files') #the array of file
+
+        if (os.path.exists('../DataSet')): #delete if there was already a folder
             shutil.rmtree('../DataSet')
-        os.makedirs('../DataSet')
+        os.makedirs('../DataSet') #create folder
         for file in files:
-            # If the user does not select a file, the browser may submit an empty part without a filename
+            #validity v2
             if file.filename == '':
                 return {'error': 'No selected file'}, 400
 
-            # Save the uploaded file to a folder\
+            # validity v3 (remove duplicate)
             if (not (os.path.exists('../DataSet/'+file.filename))):
                 file.save('../DataSet/' + file.filename)
 

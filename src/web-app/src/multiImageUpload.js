@@ -41,8 +41,10 @@ function MultiImageUpload(){
     };
     return (
       <div>
-          <div onClick={handleClick} style={{cursor:'pointer'}}>
-            Upload a file
+          <div onClick={handleClick} style={{cursor:'pointer',opacity:'0.25'}}>
+            <h4>
+                 Upload files
+            </h4>
           </div>
           <input
             type="file"
@@ -55,7 +57,6 @@ function MultiImageUpload(){
                 <img
                 key={index}
                 src={url}
-                alt={`Uploaded ${index + 1}`}
                 style={{
                     position: 'relative',
                     minHeight: '200px',
