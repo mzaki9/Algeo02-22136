@@ -13,7 +13,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-api":"cd api && venv/Scripts/flask run --no-debugger",
     "build": "react-scripts build",
+    "test-api":"cd api && flask test",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
