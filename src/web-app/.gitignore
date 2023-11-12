@@ -21,3 +21,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# Ignore virtual environment
+api/venv/
+
+# Ignore Python bytecode cache
+api/__pycache__/
