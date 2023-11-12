@@ -24,7 +24,7 @@ yarn-error.log*
 
 
 # Ignore virtual environment
-api/venv/
+venv/
 
 # Ignore Python bytecode cache
-api/__pycache__/
+__pycache__/
