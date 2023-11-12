@@ -5,8 +5,39 @@
 
     or you can checkout this link ! https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project
 2. Go to src/web-app/src
+
     >cd ../src/web-app/src
 <br>
-3.  start localhost server to open the website
+
+3. Activate the virtual environment (optional):
+
+    ```bash
+    # Navigate to the API folder
+    cd ../api
+
+    # Create a virtual environment (if not already created)
+    python -m venv venv
+
+    # Activate the virtual environment
+    source venv/bin/activate  # On macOS/Linux
+    .\venv\Scripts\activate    # On Windows
+    ```
+
+4. Install Python dependencies:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+5. start localhost server to open the website
+
     > npm install (optional) <br>
     > npm start
+   
+6. back to folder web-app and open two terminal<br>
+    a. Terminal 1:
+
+    > yarn start 
+
+    b. Terminal 2: 
+
+    > yarn start-api

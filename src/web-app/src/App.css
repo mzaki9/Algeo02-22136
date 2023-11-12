@@ -13,8 +13,12 @@
   }
 }
 .HeadTab{
+  position: fixed;
+  width: 100vw;
+  top:0px;
   background-color: #18a56a;
   min-height: 15vh;
+  z-index: 2 ;
 }
 .Title{
   position: absolute;
@@ -78,6 +82,7 @@
   border-radius: 15% 15% 15% 15%;
 }
 .App-header {
+  overflow: auto;
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -87,42 +92,80 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.App-body{
+  background-color: #1a1c21;
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
 
 .boxInputImage {
-  position: absolute;
-  left: 60px;
-  bottom: 25px;
-  width: 270px;
-  height: 338px;
-  background-color: #9aa0a915;
-  border: 2px solid #19c37d;
+  position: relative;
+  top: 40vh;
+  right: 27vw;
+  width: 400px;
+  height: 400px;
+  background-color: #363a43;
+  border: 3px solid #18a56aa4;
   outline: none;
   padding: 10px 14px;
+  border-radius: 10% 10% 10% 10%;
   text-align: center;
 }
 .boxInputImage:hover{
   background-color: #9aa0a974;
+  border: 5px solid #19c37d;
 }
-.boxResult{
-  position: absolute;
-  
-  right: 0px;
-  width: 400px;
-  height: 300px;
-  border: 2px solid #61dafba8;
-  outline: #61dafb;
+.dataBox{
+  position: relative;
+  top: 70vh;
+  left: 20vw;
+  width: 600px;
+  height: 400px;
+  background-color: #363a43;
+  border: 3px solid rgba(146, 31, 191, 0.801);
+  outline: none;
   padding: 10px 14px;
-  background-color: #282c34;
   border-radius: 10% 10% 10% 10%;
+  text-align: center;
+}
+.dataBox:hover{
+  background-color: #3b3f45d5;
+  border: 5px solid rgba(173, 65, 216, 0.801);
+}
+.resultBox {
+  position: relative;
+  top: 100vh;
+  width: 100vw;
+  height: 400px;
+  background-color: #363a43;
+  border: 3px solid rgba(36, 142, 255, 0.792);
+  outline: none;
+  padding: 10px 14px;
+  text-align: center;
+}
+
+.uploadImageButton{
+  position: relative;
+  height:400px;
+  width:400px;
+  bottom: 12vh;
+  text-align: center;
+  line-height: 400px;
+  font-size: calc(10px + 2vmin);
 
 }
-.boxResult:hover{
-  background-color: #3b3f451f;
-}
-.uploadImageButton{
-  position: absolute;
-  left: 100px;
-  bottom:0px;
+.uploadDataSetButton{
+  position: relative;
+  height:400px;
+  width:600px;
+  bottom: 12vh;
+  text-align: center;
+  line-height: 400px;
+  font-size: calc(10px + 2vmin);
 
 }
 .App-link {

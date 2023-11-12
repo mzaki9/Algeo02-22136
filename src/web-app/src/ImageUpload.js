@@ -1,76 +1,48 @@
-import React, { useState } from 'react';
-function ImageUpload() {
-    const [selectedImage, setSelectedImage] = useState(null);
-  
-    const handleImageChange = (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload= (e)=>{
-            const imgURL = e.target.result;
-            const img = new Image();
-            img.src = imgURL;
-    
-            const maxWidth = 270;
-            const maxHeight = 338;
-            let newWidth = img.width;
-            let newHeight = img.height;
+import React, { useRef, useState } from 'react';
+function ImageUpload(){
+    const [file, setFile] = useState(null);
+    const handleFile = async (e)=>{
+      const selectedFile = e.target.files[0];
+      console.log(e.target.files);
+      setFile(URL.createObjectURL(e.target.files[0]));
+      try{
 
-            if (img.width > maxWidth) {
-                newWidth = maxWidth;
-                newHeight = (img.height * maxWidth) / img.width;
-              }
-      
-            if (newHeight > maxHeight) {
-                newHeight = maxHeight;
-                newWidth = (img.width * maxHeight) / img.height;
-            }
-            const canvas = document.createElement('canvas');
-            canvas.width = newWidth;
-            canvas.height = newHeight;
-    
-            // Draw the resized image on the canvas
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, newWidth, newHeight);
-    
-            // Convert the canvas to a data URL
-            const resizedDataUrl = canvas.toDataURL('image/jpeg');
-            setSelectedImage(resizedDataUrl);             
-        };
-        reader.readAsDataURL(file);
-      }
-    };
-/*
-    const handleImageUpload = () => {
-        // form data -> post request server
         const formData = new FormData();
-        formData.append('image', image);
+        formData.append('file', selectedFile);
+        const response = await fetch('http://127.0.0.1:5000/upload' ,{
+          method:'POST',
+          body: formData,
+        });
+        const data = await response.json();
+        console.log(data);
+      } catch (error){
+        console.error('Error uploading file:', error);
+      }
+    }
+    const hiddenFile = useRef(null);
 
-       // fecth (send image) using flask->axios request
-        fetch('/upload', {
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => response.text())
-        .then(data => console.log(data))
-        .catch(error => console.error(error));
+    const handleClick = event =>{
+      hiddenFile.current.click();
     };
-    */
     return (
       <div>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          id="imageInput"
-          style={{ display: 'none'}}
-        />
-        <button onClick={() => document.getElementById('imageInput').click()}>
-          Upload Image
-        </button>
-        {selectedImage && <img src={selectedImage} alt="Selected" style={{position:'absolute', bottom:'25px', left:'-5px'}}/>}
-      </div>
+          <div onClick={handleClick} style={{cursor:'pointer', opacity:'0.25'}}>
+            Upload a file
+          </div>
+          <input
+            type="file"
+            ref = {hiddenFile}
+            style={{display:'none'}}
+            onChange={handleFile}
+          />
+            {file && (
+            <img src={file} alt="Uploaded" style={{position:'relative',
+            minHeight:'240px',minWidth:'240px', maxHeight:'400px',maxWidth:'400px',bottom:'390px'}}/>
+
+
+          )}
+        </div>
     );
-  }
-  
+}
+
   export default ImageUpload;
