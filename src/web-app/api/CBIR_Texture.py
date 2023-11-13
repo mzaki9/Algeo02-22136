@@ -151,7 +151,7 @@ class CBIRTextureResource(Resource):
         return jsonify({'results': response_data, 'execution_time': execution_time})
 
 
-api.add_resource(CBIRResource, '/cbirtexture')
+api.add_resource(CBIRTextureResource, '/cbirtexture')
 
 
 
