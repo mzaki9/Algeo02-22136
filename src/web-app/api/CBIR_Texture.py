@@ -1,8 +1,15 @@
+from flask import Flask, jsonify, request
+from flask_restful import Api, Resource
+from flask_cors import CORS
 import cv2
-import numpy as np
-import time
 import os
+import numpy as np
 from multiprocessing import Pool
+import time
+
+app = Flask(__name__)
+CORS(app)
+api = Api(app)
 
 def compress_image(image, compression_scale=0.75, quality=85):
     # Mengkompresi gambar dengan skala tertentu
@@ -106,45 +113,46 @@ def process_image(args):
     return (image_name, similarity_score)
 
 
-def main():
-    script_directory = os.path.dirname(os.path.abspath(__file__))
-    os.chdir(script_directory)
+class CBIRTextureResource(Resource):
+    def post(self):
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        os.chdir(script_directory)
 
-    # Path to the folder containing reference images
-    reference_images_path = '../uploads/'
-
-    # List all images in the reference images folder
-    reference_images = os.listdir(reference_images_path)
-
-    # Choose the first image as the reference image (you can customize this logic)
-    reference_image_name = reference_images[0]
-    reference_image_path = os.path.join(reference_images_path, reference_image_name)
-
-    # Read the reference image
-    reference_image = cv2.imread(reference_image_path)
-    reference_vector = cbirTexture(reference_image)
-
-    dataset_path = '../DataSet/'
-    dataset_images = os.listdir(dataset_path)
-
-    start_time = time.time()  
-
-    with Pool() as p:
-        results = p.map(process_image, [(image_name, dataset_path, reference_vector) for image_name in dataset_images])
-
-    end_time = time.time() 
-
-    similarity_scores = {image_name: similarity_score for image_name, similarity_score in results}
+        reference_images_path = '../uploads/'
 
 
-    sorted_similarity_scores = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=True)
-    for image_name, similarity_score in sorted_similarity_scores:
-        print(f"Image: {image_name}, Similarity: {similarity_score * 100:.2f}%")
+        reference_images = os.listdir(reference_images_path)
 
-    print("Execution Time: {:.2f} seconds".format(end_time - start_time)) 
 
-if __name__ == "__main__":
-    main()
+        reference_image_name = reference_images[0]
+        reference_image_path = os.path.join(reference_images_path, reference_image_name)
+
+
+        reference_image = cv2.imread(reference_image_path)
+        reference_vector = cbirTexture(reference_image)
+
+        dataset_path = '../DataSet/'
+        dataset_images = os.listdir(dataset_path)
+
+        start_time = time.time()  
+
+        with Pool() as p:
+            results = p.map(process_image, [(image_name, dataset_path, reference_vector) for image_name in dataset_images])
+
+        end_time = time.time() 
+
+        ssimilarity_scores = {image_name: similarity_score for image_name, similarity_score in results if similarity_score >= 0.6}
+
+        sorted_similarity_scores = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=False)
+        response_data = [{'image_name': image_name, 'similarity_score': similarity_score * 100} for image_name, similarity_score in sorted_similarity_scores]
+
+        execution_time = end_time - start_time
+
+        return jsonify({'results': response_data, 'execution_time': execution_time})
+
+
+api.add_resource(CBIRResource, '/cbirtexture')
+
 
 
 
