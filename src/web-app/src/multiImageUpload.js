@@ -68,7 +68,7 @@ function Items({ currentItems}) {
             src={url}
             style={{
                 position: 'relative',
-                bottom: '50vh',
+                bottom: '55vh',
                 minHeight: '200px',
                 minWidth: '200px',
                 maxHeight: '280px',
@@ -106,12 +106,12 @@ function PaginatedItems({ itemsPerPage, items}) {
     return (
       <>
         <Items currentItems={currentItems} />
-        <div style={{position:'absolute',top:'40vh',left:'16vw'}}>
+        <div style={{position:'absolute',top:'45vh',left:'0vw'}}>
             <ReactPaginate
                     breakLabel="..."
                     nextLabel="next >"
                     onPageChange={handlePageClick}
-                    pageRangeDisplayed={3}
+                    pageRangeDisplayed={2}
                     marginPagesDisplayed={2}
                     pageCount={pageCount}
                     previousLabel="< prev"

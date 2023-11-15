@@ -1,8 +1,9 @@
 /* styles.css */
 .container {
-    width: 300px; /* Adjust the width of your box as needed */
+    width: 500px; /* Adjust the width of your box as needed */
     margin: 0 auto; /* This centers the container horizontally */
     padding: 20px; /* Optional: Add padding inside the box */
+    align-items: center;
     /* Center-align text inside the container */
 }
 .react-paginate {
@@ -10,14 +11,13 @@
     list-style: none;
     padding: 0;
     font-size: 16px;
-    align-items: center;
     overflow: hidden;
     margin: 0 auto; /* This centers the container horizontally */
    
   }
   
   .react-paginate li {
-    margin: 0 5px; /* Adjust the margin as needed */
+    margin: 0 10px; /* Adjust the margin as needed */
   }
   
   .react-paginate a {
@@ -41,8 +41,9 @@
     cursor: pointer;
   }
   
-  .active {
-    color: rgba(36, 142, 255, 0.792);
+  .page-item.active .page-link{
+    color: rgb(0, 0, 0);
+    background-color: rgb(0, 255, 255);
     
   }
   
