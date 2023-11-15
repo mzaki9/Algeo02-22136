@@ -91,7 +91,7 @@ class CBIRTextureResource(Resource):
 
 
 class CBIRWarnaResource(Resource):
-    def post(self):
+    def get(self):
         script_directory = os.path.dirname(os.path.abspath(__file__))
         os.chdir(script_directory)
 
