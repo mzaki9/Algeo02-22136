@@ -21,7 +21,7 @@ function MultiImageUpload(){
         for (let i=0;i<selectedFiles.length;i++){
             formData.append('files', selectedFiles[i]);
         }
-        const response = await fetch('http://127.0.0.1:5000/multiupload' ,{
+        const response = await fetch('http://localhost:5000/multiupload' ,{
           method:'POST',
           body: formData,
         });
@@ -68,7 +68,7 @@ function Items({ currentItems}) {
             src={url}
             style={{
                 position: 'relative',
-                bottom: '55vh',
+                bottom: '60vh',
                 minHeight: '200px',
                 minWidth: '200px',
                 maxHeight: '280px',
