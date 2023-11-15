@@ -37,7 +37,7 @@ function ImageUpload(){
           />
             {file && (
             <img src={file} alt="Uploaded" style={{position:'relative',
-            minHeight:'240px',minWidth:'240px', maxHeight:'400px',maxWidth:'400px',bottom:'390px'}}/>
+            minHeight:'240px',minWidth:'240px', maxHeight:'400px',maxWidth:'400px',bottom:'330px'}}/>
 
 
           )}

@@ -1,0 +1,52 @@
+/* styles.css */
+.container {
+    width: 500px; /* Adjust the width of your box as needed */
+    margin: 0 auto; /* This centers the container horizontally */
+    padding: 20px; /* Optional: Add padding inside the box */
+    align-items: center;
+    /* Center-align text inside the container */
+}
+.react-paginate {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    font-size: 16px;
+    overflow: hidden;
+    margin: 0 auto; /* This centers the container horizontally */
+   
+  }
+  
+  .react-paginate li {
+    margin: 0 10px; /* Adjust the margin as needed */
+  }
+  
+  .react-paginate a {
+    padding: 8px; /* Adjust padding as needed */
+    color: rgb(0, 0, 0); /* Set the desired text color */
+
+    border: 1px solid rgba(36, 142, 255, 0.792); /* Optionally, add a border to the page links */
+    border-radius: 4px; /* Optionally, add border radius for rounded corners */
+    background-color: rgb(226, 226, 226);
+    
+  }
+  
+  .page-item {
+    margin: 0;
+  }
+  
+  .page-link {
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .page-item.active .page-link{
+    color: rgb(0, 0, 0);
+    background-color: rgb(0, 255, 255);
+    
+  }
+  
+  .page-item:hover .page-link {
+    background-color: #7d7c7c;
+  }
