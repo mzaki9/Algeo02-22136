@@ -6,6 +6,7 @@ import os
 import numpy as np
 from multiprocessing import Pool
 import time
+from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
@@ -114,7 +115,7 @@ def process_image(args):
 
 
 class CBIRTextureResource(Resource):
-    def post(self):
+    def get(self):
         script_directory = os.path.dirname(os.path.abspath(__file__))
         os.chdir(script_directory)
 
@@ -141,7 +142,7 @@ class CBIRTextureResource(Resource):
 
         end_time = time.time() 
 
-        ssimilarity_scores = {image_name: similarity_score for image_name, similarity_score in results if similarity_score >= 0.6}
+        similarity_scores = {image_name: similarity_score for image_name, similarity_score in results if similarity_score >= 0.6}
 
         sorted_similarity_scores = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=False)
         response_data = [{'image_name': image_name, 'similarity_score': similarity_score * 100} for image_name, similarity_score in sorted_similarity_scores]
@@ -151,10 +152,8 @@ class CBIRTextureResource(Resource):
         return jsonify({'results': response_data, 'execution_time': execution_time})
 
 
+
+
 api.add_resource(CBIRTextureResource, '/cbirtexture')
-
-
-
-
 
 

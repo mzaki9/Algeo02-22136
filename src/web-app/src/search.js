@@ -2,70 +2,80 @@ import React, { useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import './App.css'
 import './import.css'
-function MultiImageUpload(){
-    const [files, setFile] = useState([]);
-    const hiddenFile = useRef(null);
 
-    const handleFile = async (e)=>{
-      const selectedFiles = e.target.files;
-      console.log(e.target.files);
-      const images= [];
+function Search(){
+    const [SwitchVal, setSwitchVal] = useState(1); 
+    const [timeExec, setTimeExec] = useState(0);
+    const [tupleList, setTupleList] = useState([]);
+    const [jSonVal, setJSonVal] = useState(null);
 
-        for (let i=0;i<selectedFiles.length;i++){
-            const url = URL.createObjectURL(selectedFiles[i]);
-            images.push(url);
+    const searchImg = async ()=>{
+        if (SwitchVal==1){
+            console.log("CBIR texture");
+            try{
+                const response = await fetch('http://localhost:5000/cbirtexture',{
+                    method:'GET',
+                });
+                const jsonData = await response.json();
+                setJSonVal(jsonData);
+                setTimeExec(jSonVal.execution_time);
+                setTupleList(jSonVal.results);
+                console.log(jSonVal);
+    
+            }catch(error){
+                console.log('Error request to API',error)
+            }
+        }else{
+            console.log("CBIR warna");
+            try{
+                const response = await fetch('http://localhost:5000/cbirwarna',{
+                    method:'GET',
+                });
+                const jsonData = await response.json();
+                setJSonVal(jsonData);
+                setTimeExec(jSonVal.execution_time);
+                setTupleList(jSonVal.results);
+                console.log(jSonVal);
+    
+            }catch(error){
+                console.log('Error request to API',error)
+            }
         }
-      setFile(images);
-      try{
-        const formData = new FormData();
-        for (let i=0;i<selectedFiles.length;i++){
-            formData.append('files', selectedFiles[i]);
-        }
-        const response = await fetch('http://localhost:5000/multiupload' ,{
-          method:'POST',
-          body: formData,
-        });
-        const data = await response.json();
-        console.log(data);
-      } catch (error){
-        console.error('Error uploading file:', error);
-      }
-    }
-    const handleClick = event =>{
-      hiddenFile.current.click();
+        <PaginatedItems itemsPerPage={3} items={tupleList}></PaginatedItems>
+
     };
-    return (
-      <div>
-        <div  className="dataBox">
-          <div className='uploadDataSetButton'>
-            <div onClick={handleClick} style={{cursor:'pointer',opacity:'0.25',left:'0vw',position:'relative'}}>
-              <h4>
-                  Upload Images
-              </h4>
+    const handleSwitchClick = ()=>{ // switch CBIR mode
+        setSwitchVal(SwitchVal*-1);
+        console.log(SwitchVal);
+    };
+    return(
+        <div>
+            <div style={{position:'relative', bottom:'25vh', right:'38vw'}}>
+                <h3>
+                    Switch CBIR mode:
+                </h3>
+            <button onClick={handleSwitchClick} > Switch </button>
             </div>
-            <input
-              type="file"
-              ref = {hiddenFile}
-              style={{display:'none'}}
-              onChange={handleFile}
-              multiple
-            />
-            <PaginatedItems itemsPerPage={2} items={files}/>
-            </div>
-          </div>
+
+            <button  onClick={searchImg } style={{position:'relative',bottom:'33vh', fontSize:'6vh'}}>
+                SEARCH
+            </button>
+            <h3 style={{position:'relative',bottom:'42vh',color:'white',fontSize:'4vh', left:'35vw'}}>
+              time: {timeExec} s
+            </h3>
+
         </div>
     );
 }
-
-
 function Items({ currentItems}) {
     return (
-      <>
+      <div>
         {currentItems &&
-           currentItems.map((url, index) => (
+           currentItems.map((img,index) => (
+            <>
             <img
             key={index}
-            src={url}
+            src={img.image_name}
             style={{
                 position: 'relative',
                 bottom: '60vh',
@@ -76,8 +86,11 @@ function Items({ currentItems}) {
                 marginRight: '40px', // Add some space between images
             }}
             />
-        ))}
-      </>
+            <p> {img.similarity_score}</p>
+            </>
+        )
+        )}
+      </div>
     );
   }
 
@@ -132,4 +145,5 @@ function PaginatedItems({ itemsPerPage, items}) {
       </>
     );
   }
-export default MultiImageUpload;
+
+export default Search;

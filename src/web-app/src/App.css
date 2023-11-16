@@ -104,6 +104,7 @@
 
 .boxInputImage {
   position: relative;
+  overflow: hidden;
   top: 40vh;
   right: 27vw;
   width: 400px;
@@ -122,9 +123,9 @@
 .dataBox{
   position: relative;
   top: 70vh;
-  left: 20vw;
-  width: 600px;
-  height: 400px;
+  width: 800px;
+  box-sizing: border-box;
+  height: 500px;
   background-color: #363a43;
   border: 3px solid rgba(146, 31, 191, 0.801);
   outline: none;
@@ -132,13 +133,14 @@
   border-radius: 10% 10% 10% 10%;
   text-align: center;
 }
+
 .dataBox:hover{
   background-color: #3b3f45d5;
   border: 5px solid rgba(173, 65, 216, 0.801);
 }
 .resultBox {
   position: relative;
-  top: 100vh;
+  top: 150vh;
   width: 100vw;
   height: 400px;
   background-color: #363a43;
@@ -160,8 +162,8 @@
 }
 .uploadDataSetButton{
   position: relative;
-  height:400px;
-  width:600px;
+  height:600px;
+  width:800px;
   bottom: 12vh;
   text-align: center;
   line-height: 400px;
@@ -180,3 +182,4 @@
     transform: rotate(360deg);
   }
 }
+

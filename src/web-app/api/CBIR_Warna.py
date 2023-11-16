@@ -1,8 +1,15 @@
+from flask import Flask, jsonify, request
+from flask_restful import Api, Resource
+from flask_cors import CORS
 import numpy as np
 import cv2
 import time
 import os
 from multiprocessing import Pool
+
+app = Flask(__name__)
+CORS(app)
+api = Api(app)
 
 def img_to_matrix_RGB(image_path):
     img = cv2.imread(image_path)
@@ -115,30 +122,40 @@ def process_image(args):
 
     return (image_name, similarity_score)
 
-def main():
-    reference_image_path = 'PATH GAMBAR QUERY'
-    matrix_reference = img_to_matrix_RGB(reference_image_path)
-    m_matrix_reference = create_submatrices(matrix_reference)
-    vektor_reference = [matrix_rgb_to_hist(matrix) for matrix in m_matrix_reference]
+class CBIRWarnaResource(Resource):
+    def post(self):
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        os.chdir(script_directory)
 
-    dataset_path = 'PATH DATASET'
-    dataset_images = os.listdir(dataset_path)
+        reference_image_path = '../uploads/'
 
-    start_time = time.time()  
+        reference_images = os.listdir(reference_image_path)
 
-    with Pool() as p:
-        results = p.map(process_image, [(image_name, dataset_path, vektor_reference) for image_name in dataset_images])
+        reference_image_name = reference_images[0]
+        reference_image_path = os.path.join(reference_image_path, reference_image_name)
+        
+        matrix_reference = img_to_matrix_RGB(reference_image_path)
+        m_matrix_reference = create_submatrices(matrix_reference)
+        vektor_reference = [matrix_rgb_to_hist(matrix) for matrix in m_matrix_reference]
 
-    end_time = time.time() 
+        dataset_path = '../Dataset/'
+        dataset_images = os.listdir(dataset_path)
 
-    similarity_scores = {image_name: similarity_score for image_name, similarity_score in results}
+        start_time = time.time()  
+
+        with Pool() as p:
+            results = p.map(process_image, [(image_name, dataset_path, vektor_reference) for image_name in dataset_images])
+
+        end_time = time.time() 
+
+        similarity_scores = {image_name: similarity_score for image_name, similarity_score in results if similarity_score >= 0.6}
 
 
-    sorted_similarity_scores = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=False)
-    for image_name, similarity_score in sorted_similarity_scores:
-        print(f"Image: {image_name}, Similarity: {similarity_score * 100:.2f}%")
+        sorted_similarity_scores = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=False)
+        response_data = [{'image_name': image_name, 'similarity_score': similarity_score * 100} for image_name, similarity_score in sorted_similarity_scores]
+        
+        execution_time = end_time - start_time
 
-    print("Execution Time: {:.2f} seconds".format(end_time - start_time)) 
+        return jsonify({'results': response_data, 'execution_time': execution_time})
 
-if __name__ == "__main__":
-    main()
+api.add_resource(CBIRWarnaResource, '/cbirwarna')

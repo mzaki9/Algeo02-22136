@@ -9,7 +9,7 @@ function ImageUpload(){
 
         const formData = new FormData();
         formData.append('file', selectedFile);
-        const response = await fetch('http://127.0.0.1:5000/upload' ,{
+        const response = await fetch('http://localhost:5000/upload' ,{
           method:'POST',
           body: formData,
         });
@@ -37,7 +37,7 @@ function ImageUpload(){
           />
             {file && (
             <img src={file} alt="Uploaded" style={{position:'relative',
-            minHeight:'240px',minWidth:'240px', maxHeight:'400px',maxWidth:'400px',bottom:'390px'}}/>
+            minHeight:'240px',minWidth:'240px', maxHeight:'400px',maxWidth:'400px',bottom:'330px'}}/>
 
 
           )}
