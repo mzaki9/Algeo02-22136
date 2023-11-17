@@ -105,7 +105,7 @@ def cosineSim(vector1, vector2):
     return dotProduct / (A * B)
 
 
-def process_image(args):
+def process_image_texture(args):
     image_name, dataset_path, reference_vector = args
     image_path = os.path.join(dataset_path, image_name)
     image = cv2.imread(image_path)
