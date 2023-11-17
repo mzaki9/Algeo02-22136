@@ -16,6 +16,7 @@ function MultiImageUpload(){
             images.push(url);
         }
       setFile(images);
+      console.log(images);
       try{
         const formData = new FormData();
         for (let i=0;i<selectedFiles.length;i++){
