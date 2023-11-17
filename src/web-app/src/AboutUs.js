@@ -18,8 +18,9 @@ function AboutUs() {
       <div className="aboutUsItem">
         <img src={image2} alt="Image 2" className="aboutUsImage" />
         <div className="aboutUsText">
-          <h2>About Image 2</h2>
-          <p>isi aja bang.</p>
+          <h2>Albert Ghazaly</h2>
+          <p>NIM: 13522150</p>
+          <p>PESAN/KESAN : أريد أن أنام دون التفكير في المهام</p>
         </div>
       </div>
       <div className="aboutUsItem">
