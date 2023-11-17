@@ -1,86 +1,51 @@
+
 .App {
   text-align: center;
+  background-color: #01162c; 
 }
+
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-.HeadTab{
-  position: fixed;
-  width: 100vw;
-  top:0px;
-  background-color: #18a56a;
-  min-height: 15vh;
-  z-index: 2 ;
-}
 .Title{
   position: absolute;
   top: 80px;
   font-size: 35px;
+}
+
+.HeadTab {
+  position: fixed;
+  width: 100vw;
+  top: 0px;
+  background-color: #18a56a;
+  min-height: 15vh;
+  z-index: 2;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
+
+.navbar-button {
+  margin: 0 80px; 
+  color: rgba(255, 255, 255, 0.8);
+  border: none;
+  background-color: #18a56a;
+  font-size: 25px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  text-decoration: none;
+}
 
 
+.navbar-button:hover {
+  color: black;
 }
-#ButtonHead1{
-  position: absolute;
-  color: rgba(255, 255, 255, 0.509);
-  border: none;
-  background-color: #18a56a;
-  top : 10px;
-  left: 15%;
-  font-size:  35px;
-  padding: 10px 20px;
-}
-#ButtonHead1:hover{
-  background-color: #19c37d;
-  color: rgba(255, 255, 255, 0.831);
-  outline: none;
-  box-shadow: none;
-  cursor: pointer;
-  border-radius: 15% 15% 15% 15%;
-}
-#ButtonHead2{
-  position: absolute;
-  color: rgba(255, 255, 255, 0.509);
-  border: none;
-  background-color: #18a56a;
-  left: 43%;
-  top: 10px;
-  font-size:  35px;
-  padding: 10px 20px;
-}
-#ButtonHead2:hover{
-  background-color: #19c37d;
-  color: rgba(255, 255, 255, 0.831);
-  outline: none;
-  box-shadow: none;
-  cursor: pointer;
-  border-radius: 15% 15% 15% 15%;
-}
-#ButtonHead3{
-  position: absolute;
-  color: rgba(255, 255, 255, 0.509);
-  border: none;
-  background-color: #18a56a;
-  right: 15%;
-  top: 10px;
-  font-size:  35px;
-  padding: 10px 20px;
-}
-#ButtonHead3:hover{
-  background-color: #19c37d;
-  color: rgba(255, 255, 255, 0.831);
-  outline: none;
-  box-shadow: none;
-  cursor: pointer;
-  border-radius: 15% 15% 15% 15%;
-}
+
+
 .App-header {
   overflow: auto;
   background-color: #282c34;
@@ -173,13 +138,3 @@
 .App-link {
   color: #61dafb;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
