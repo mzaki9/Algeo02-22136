@@ -13,15 +13,13 @@ api = Api(app)
 
 def img_to_matrix_RGB(image_path):
     img = cv2.imread(image_path)
-    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    img_rgb = img_rgb.astype(np.float32)
-    img_rgb = np.array(img_rgb)
+    img_rgb = img.astype(np.float32)
     img_rgb = np.divide(img_rgb,255.0)
     return img_rgb
 
 def matrix_rgb_to_hist(image):
     # Membagi matrix image menjadi 3 matrix representasi rred, green, blue
-    r,g,b = image[:,:,0], image[:,:,1], image[:,:,2]
+    r,g,b = image[:,:,2], image[:,:,1], image[:,:,0]
 
     # Mencari cmax, cmin, delta
     cmax = np.max(image, axis=2)
@@ -30,7 +28,6 @@ def matrix_rgb_to_hist(image):
     # Inisialisasi matrix h,s,v
     h = np.zeros_like(r)
     s = np.zeros_like(r)
-    v = np.zeros_like(r)
 
     # Membuat mask untuk r g b untuk h
     mask_r = np.logical_and(delta !=0, cmax==r)
@@ -47,20 +44,29 @@ def matrix_rgb_to_hist(image):
     s[cmax == 0] = 0
     s[cmax != 0] = (delta[cmax != 0]) / (cmax[cmax != 0])
 
-    # Hitung nilai v
-    v = np.maximum.reduce([r,g,b])
+    # v = cmax
 
-    quantify(h,s,v)
+    quantify(h,s,cmax)
 
-    h = h.astype(np.uint8)
-    s = s.astype(np.uint8)
-    v = v.astype(np.uint8)
+    hist = np.zeros(14)
+    hist[0] = np.count_nonzero(h == 0)
+    hist[1] = np.count_nonzero(h == 1)
+    hist[2] = np.count_nonzero(h == 2)
+    hist[3] = np.count_nonzero(h == 3)
+    hist[4] = np.count_nonzero(h == 4)
+    hist[5] = np.count_nonzero(h == 5)
+    hist[6] = np.count_nonzero(h == 6)
+    hist[7] = np.count_nonzero(h == 7)
 
-    hist_h = cv2.calcHist([h], [0], None, [8], [0, 8]).flatten()
-    hist_s = cv2.calcHist([s], [0], None, [3], [0, 3]).flatten()
-    hist_v = cv2.calcHist([v], [0], None, [3], [0, 3]).flatten()
+    hist[8] = np.count_nonzero(s == 0)
+    hist[9] = np.count_nonzero(s == 1)
+    hist[10] = np.count_nonzero(s == 2)
 
-    return np.concatenate((hist_h, hist_s, hist_v))
+    hist[11] = np.count_nonzero(cmax == 0)
+    hist[12] = np.count_nonzero(cmax == 1)
+    hist[13] = np.count_nonzero(cmax == 2)
+
+    return hist
 
 def quantify(h,s,v):
     # Quantify h
