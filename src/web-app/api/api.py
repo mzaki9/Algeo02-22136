@@ -118,7 +118,7 @@ class CBIRWarnaResource(Resource):
         similarity_scores = {image_name: similarity_score for image_name, similarity_score in results if similarity_score >= 0.6}
 
 
-        sorted_similarity_scores = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=False)
+        sorted_similarity_scores = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=True)
         response_data = [{'image_name': image_name, 'similarity_score': similarity_score * 100} for image_name, similarity_score in sorted_similarity_scores]
         
         execution_time = end_time - start_time
