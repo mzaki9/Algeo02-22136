@@ -18,9 +18,9 @@ function Search(){
                 });
                 const jsonData = await response.json();
                 setJSonVal(jsonData);
-                setTimeExec(jSonVal.execution_time);
-                setTupleList(jSonVal.results);
-                console.log(jSonVal);
+                setTimeExec(jsonData.execution_time);
+                setTupleList(jsonData.results);
+                console.log(jsonData);
     
             }catch(error){
                 console.log('Error request to API',error)
@@ -35,7 +35,7 @@ function Search(){
                 setJSonVal(jsonData);
                 setTimeExec(jSonVal.execution_time);
                 setTupleList(jSonVal.results);
-                console.log(jSonVal);
+                console.log(jsonData);
     
             }catch(error){
                 console.log('Error request to API',error)
@@ -57,7 +57,7 @@ function Search(){
             <button onClick={handleSwitchClick} > Switch </button>
             </div>
 
-            <button  onClick={searchImg } style={{position:'relative',bottom:'33vh', fontSize:'6vh'}}>
+            <button  onClick={searchImg } className="searchButton"style={{position:'relative',bottom:'33vh', fontSize:'6vh'}}>
                 SEARCH
             </button>
             <h3 style={{position:'relative',bottom:'42vh',color:'white',fontSize:'4vh', left:'35vw'}}>
