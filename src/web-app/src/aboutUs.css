@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     margin-top: 200px;
-    margin-bottom: 400px; /* Sesuaikan dengan kebutuhan */
+    margin-bottom: 400px; 
     padding: 50px;
     border-radius: 10px;
     width: 800px;
@@ -16,7 +16,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 50px; /* Sesuaikan dengan kebutuhan */
+    margin-bottom: 50px; 
     background-color: #1c1c2774;
     padding: 20px;
     border-radius: 20px;
@@ -24,7 +24,7 @@
 }
 
 .aboutUsItem:last-child {
-    margin-bottom: 0; /* Atur margin terakhir menjadi 0 */
+    margin-bottom: 0; 
 }
 
 .aboutUsImage {

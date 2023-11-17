@@ -2,7 +2,7 @@ import React from 'react';
 import image1 from './image/image1.jpg';
 import image2 from './image/image2.jpg';
 import image3 from './image/image3.jpg';
-import './aboutUs.css'; // Pastikan untuk mengimpor file CSS
+import './aboutUs.css'; 
 
 function AboutUs() {
   return (
