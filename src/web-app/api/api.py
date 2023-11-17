@@ -79,7 +79,7 @@ class CBIRTextureResource(Resource):
         start_time = time.time()  
 
         with Pool() as p:
-            results = p.map(process_image, [(image_name, dataset_path, reference_vector) for image_name in dataset_images])
+            results = p.map(process_image_texture, [(image_name, dataset_path, reference_vector) for image_name in dataset_images])
 
         end_time = time.time() 
 
@@ -349,4 +349,12 @@ def process_image(args):
     similarity = [cosinesim(vektor_reference[i], vektor[i]) for i in range(len(vektor_reference))]
     similarity_score = sum(similarity) / len(similarity) if len(similarity) != 0 else 0
 
+    return (image_name, similarity_score)
+
+def process_image_texture(args):
+    image_name, dataset_path, reference_vector = args
+    image_path = os.path.join(dataset_path, image_name)
+    image = cv2.imread(image_path)
+    image_vector = cbirTexture(image)
+    similarity_score = cosineSim(reference_vector, image_vector)
     return (image_name, similarity_score)
