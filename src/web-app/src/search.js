@@ -6,9 +6,8 @@ import './import.css'
 function Search(){
     const [SwitchVal, setSwitchVal] = useState(1); 
     const [timeExec, setTimeExec] = useState(0);
-    const [tupleList, setTupleList] = useState([]);
-    const [jSonVal, setJSonVal] = useState(null);
-
+    const [tupleList, setTupleList] = useState([[]]);
+    const [files, setFile] = useState([]);
     const searchImg = async ()=>{
         if (SwitchVal==1){
             console.log("CBIR texture");
@@ -17,10 +16,10 @@ function Search(){
                     method:'GET',
                 });
                 const jsonData = await response.json();
-                setJSonVal(jsonData);
-                setTimeExec(jSonVal.execution_time);
-                setTupleList(jSonVal.results);
-                console.log(jSonVal);
+                setTimeExec(jsonData.execution_time);
+                setTupleList(jsonData.results);
+                console.log(jsonData);
+                console.log(tupleList);
     
             }catch(error){
                 console.log('Error request to API',error)
@@ -32,16 +31,21 @@ function Search(){
                     method:'GET',
                 });
                 const jsonData = await response.json();
-                setJSonVal(jsonData);
-                setTimeExec(jSonVal.execution_time);
-                setTupleList(jSonVal.results);
-                console.log(jSonVal);
+                setTimeExec(jsonData.execution_time);
+                setTupleList(jsonData.results);
+                console.log(jsonData);
+                console.log(tupleList);
+  
     
             }catch(error){
                 console.log('Error request to API',error)
             }
         }
-        <PaginatedItems itemsPerPage={3} items={tupleList}></PaginatedItems>
+        const images= [];
+        for (let i=0;i<tupleList.length;i++){
+              images.push(tupleList[i][0]);
+          }
+        setFile(images);
 
     };
     const handleSwitchClick = ()=>{ // switch CBIR mode
@@ -57,25 +61,24 @@ function Search(){
             <button onClick={handleSwitchClick} > Switch </button>
             </div>
 
-            <button  onClick={searchImg } style={{position:'relative',bottom:'33vh', fontSize:'6vh'}}>
+            <button  onClick={searchImg } className="searchButton"style={{position:'relative',bottom:'33vh', fontSize:'6vh'}}>
                 SEARCH
             </button>
             <h3 style={{position:'relative',bottom:'42vh',color:'white',fontSize:'4vh', left:'35vw'}}>
               time: {timeExec} s
             </h3>
-
+            <PaginatedItems itemsPerPage={2} items={files}></PaginatedItems>
         </div>
     );
 }
 function Items({ currentItems}) {
     return (
-      <div>
+      <>
         {currentItems &&
-           currentItems.map((img,index) => (
-            <>
+           currentItems.map((url,index) => (
+            <div key={index}>
             <img
-            key={index}
-            src={img.image_name}
+            src={url}
             style={{
                 position: 'relative',
                 bottom: '60vh',
@@ -86,11 +89,10 @@ function Items({ currentItems}) {
                 marginRight: '40px', // Add some space between images
             }}
             />
-            <p> {img.similarity_score}</p>
-            </>
+            </div>
         )
         )}
-      </div>
+      </>
     );
   }
 
@@ -98,13 +100,12 @@ function PaginatedItems({ itemsPerPage, items}) {
     // Here we use item offsets; we could also use page offsets
     // following the API or data you're working with.
     const [itemOffset, setItemOffset] = useState(0);
-  
     // Simulate fetching items from another resources.
     // (This could be items from props; or items loaded in a local state
     // from an API endpoint with useEffect and useState)
     const endOffset = itemOffset + itemsPerPage;
     console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-    const currentItems = items.slice(itemOffset, endOffset);
+    const currentItems = items.slice(itemOffset,endOffset);
     const pageCount = Math.ceil(items.length / itemsPerPage);
   
     // Invoke when user click to request another page.
@@ -145,5 +146,6 @@ function PaginatedItems({ itemsPerPage, items}) {
       </>
     );
   }
+  
 
 export default Search;

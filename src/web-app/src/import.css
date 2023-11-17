@@ -1,4 +1,11 @@
 /* styles.css */
+.searchButton{
+  background-color: aliceblue;
+}
+.searchButton:hover{
+  background-color: #7d7c7c;
+
+}
 .container {
     width: 500px; /* Adjust the width of your box as needed */
     margin: 0 auto; /* This centers the container horizontally */

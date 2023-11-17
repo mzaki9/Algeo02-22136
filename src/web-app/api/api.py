@@ -8,9 +8,12 @@ import time
 import os
 import shutil
 from flask_cors import CORS
+
 app = Flask(__name__)
 CORS(app)
 CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000"]}})
+CORS(app, resources={r"/cbirwarna": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/cbirtexture": {"origins": "http://localhost:3000"}})
 api = Api(app)
 app.config['MAX_CONTENT_LENGTH'] = 5000 * 1024 * 1024
 
@@ -83,7 +86,7 @@ class CBIRTextureResource(Resource):
         similarity_scores = {image_name: similarity_score for image_name, similarity_score in results if similarity_score[1] >= 0.6}
 
         sorted_similarity_scores = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=False)
-        response_data = [{'image_name': image_name, 'similarity_score': similarity_score * 100} for image_name, similarity_score in sorted_similarity_scores]
+        response_data = [[ image_name, similarity_score * 100] for image_name, similarity_score in sorted_similarity_scores]
 
         execution_time = end_time - start_time
 
@@ -107,19 +110,17 @@ class CBIRWarnaResource(Resource):
 
         dataset_path = '../DataSet/'
         dataset_images = os.listdir(dataset_path)
-
         start_time = time.time()  
 
         with Pool() as p:
             results = p.map(process_image, [(image_name, dataset_path, vektor_reference) for image_name in dataset_images])
-
         end_time = time.time() 
 
         similarity_scores = {image_name: similarity_score for image_name, similarity_score in results if similarity_score >= 0.6}
 
 
-        sorted_similarity_scores = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=False)
-        response_data = [{'image_name': image_name, 'similarity_score': similarity_score * 100} for image_name, similarity_score in sorted_similarity_scores]
+        sorted_similarity_scores = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=True)
+        response_data = [[image_name, similarity_score * 100] for image_name, similarity_score in sorted_similarity_scores]
         
         execution_time = end_time - start_time
 
