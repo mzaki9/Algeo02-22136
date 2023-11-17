@@ -7,11 +7,11 @@
 
 }
 .container {
-    width: 500px; /* Adjust the width of your box as needed */
-    margin: 0 auto; /* This centers the container horizontally */
-    padding: 20px; /* Optional: Add padding inside the box */
+    width: 500px; 
+    margin: 0 auto;
+    padding: 20px;
     align-items: center;
-    /* Center-align text inside the container */
+  
 }
 .react-paginate {
     display: flex;
@@ -19,20 +19,20 @@
     padding: 0;
     font-size: 16px;
     overflow: hidden;
-    margin: 0 auto; /* This centers the container horizontally */
+    margin: 0 auto; 
    
   }
   
   .react-paginate li {
-    margin: 0 10px; /* Adjust the margin as needed */
+    margin: 0 10px; 
   }
   
   .react-paginate a {
-    padding: 8px; /* Adjust padding as needed */
-    color: rgb(0, 0, 0); /* Set the desired text color */
+    padding: 8px; 
+    color: rgb(0, 0, 0);
 
-    border: 1px solid rgba(36, 142, 255, 0.792); /* Optionally, add a border to the page links */
-    border-radius: 4px; /* Optionally, add border radius for rounded corners */
+    border: 1px solid rgba(36, 142, 255, 0.792); 
+    border-radius: 4px; 
     background-color: rgb(226, 226, 226);
     
   }
