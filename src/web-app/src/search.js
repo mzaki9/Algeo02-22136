@@ -73,31 +73,31 @@ function Search(){
     };
     return(
         <div>
-            <div style={{position:'relative', bottom:'30vh', right:'38vw'}}>
+            <div style={{position:'relative', bottom:'190px', right:'38vw'}}>
                 <h3>
                     Switch CBIR mode:
                 </h3>
-                <h4 style={{position:'relative',bottom:'5vh'}}>
-                  <div style={{right:'5vw',position:'relative', fontSize:'4vh'}}>
+                <h4 style={{position:'relative',bottom:'25px'}}>
+                  <div style={{right:'60px',position:'relative', fontSize:'4vh'}}>
                     tekstur
                   </div>
-                  <div style={{left:'5vw',position:'relative', bottom:'5vh',fontSize:'4vh'}}>
+                  <div style={{left:'60px',position:'relative', bottom:'30px',fontSize:'4vh'}}>
                     warna
                   </div>
                 </h4>
-                <label class="switch" style={{position:'relative', bottom:'12vh'}}>
+                <label class="switch" style={{position:'relative', bottom:'50px'}}>
                   <input type="checkbox" id="mySwitch" checked={switchState} onChange={handleSwitchToggle}/>
                   <span class="slider"></span>
                 </label>
             </div>
 
-            <button  onClick={searchImg} className="Searchbtn"style={{position:'relative',bottom:'55vh', fontSize:'6vh'}}>
+            <button  onClick={searchImg} className="Searchbtn"style={{position:'relative',bottom:'330px', fontSize:'6vh'}}>
                 SEARCH
             </button>
-            <h3 style={{position:'relative',bottom:'71vh',color:'white',fontSize:'4vh', left:'35vw'}}>
+            <h3 style={{position:'relative',bottom:'400px',color:'white',fontSize:'4vh', left:'420px'}}>
               Result: {tupleList.length} gambar
             </h3>
-            <h3 style={{position:'relative',bottom:'72vh',color:'white',fontSize:'4vh', left:'35vw'}}>
+            <h3 style={{position:'relative',bottom:'410px',color:'white',fontSize:'4vh', left:'400px'}}>
               time: {timeExec.toFixed(3)} s
             </h3>
             
@@ -123,7 +123,7 @@ function Items({ currentItems, data}) {
         alt={item[1].toFixed(3)}
         style={{
           position: 'relative',
-          bottom: '57vh',
+          bottom: '350px',
           minHeight: '200px',
           minWidth: '200px',
           maxHeight: '280px',
@@ -131,7 +131,7 @@ function Items({ currentItems, data}) {
           marginRight: '40px', // Add some space between images
         }}
       />
-      <p style={{position:'absolute',bottom:'46vh'}}>{item[1].toFixed(3)}%</p>
+      <p style={{position:'absolute',bottom:'290px', left:'90px'}}>{item[1].toFixed(3)}%</p>
     </div>
   ));
     return (
@@ -163,7 +163,7 @@ function PaginatedItems({ itemsPerPage, items, data}) {
           <div style={{display:'flex', position:'relative'}}>
           <Items currentItems={currentItems} data={data}/>
           </div>
-          <div style={{position:'absolute',top:'83vh',left:'12vw'}}>
+          <div style={{position:'absolute',top:'435px',left:'220px'}}>
               <ReactPaginate
                       breakLabel="..."
                       nextLabel="next >"

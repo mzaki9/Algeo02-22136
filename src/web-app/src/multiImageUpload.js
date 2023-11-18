@@ -37,7 +37,7 @@ function MultiImageUpload(){
     };
     return (
       <div>
-        <div style={{position:'relative', top:'100vh', right:'13vw'}}>
+        <div style={{position:'relative', top:'650px', right:'170px'}}>
         <label class="custom-file-upload">
             <input type="file" style={{display:'none'}} onChange={handleFile} multiple/>
           Upload File
@@ -75,7 +75,7 @@ function Items({ currentItems}) {
             src={url}
             style={{
                 position: 'relative',
-                bottom: '60vh',
+                bottom: '350px',
                 minHeight: '200px',
                 minWidth: '200px',
                 maxHeight: '280px',
@@ -110,7 +110,7 @@ function PaginatedItems({ itemsPerPage, items}) {
     return (
       <>
         <Items currentItems={currentItems} />
-        <div style={{position:'absolute',top:'45vh',left:'0vw'}}>
+        <div style={{position:'absolute',top:'230px',left:'0vw'}}>
             <ReactPaginate
                     breakLabel="..."
                     nextLabel="next >"

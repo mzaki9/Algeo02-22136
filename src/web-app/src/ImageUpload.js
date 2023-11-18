@@ -29,7 +29,7 @@ function ImageUpload(){
     };
     return (
       <div>
-         <div style={{position:'relative', top:'20vh', left:'25vw'}}>
+         <div style={{position:'relative', top:'90px', left:'320px'}}>
             <label class="custom-file-upload">
                 <input type="file" style={{display:'none', cursor:'pointer'}} onChange={handleFile} />
                 Upload File
@@ -48,7 +48,7 @@ function ImageUpload(){
             />
               {file && (
               <img src={file} alt="Uploaded" style={{position:'relative',
-              minHeight:'240px',minWidth:'240px', maxHeight:'400px',maxWidth:'400px',bottom:'68vh'}}/>
+              minHeight:'240px',minWidth:'240px', maxHeight:'350px',maxWidth:'350px',bottom:'350px'}}/>
 
 
             )}
