@@ -15,7 +15,22 @@
   top: 80px;
   font-size: 35px;
 }
-
+.doYouKnow{
+    width: auto;
+    height: 40vh;
+    border: 1px solid white;
+    background-color: #1a1d22;
+    overflow: hidden;
+    border-radius: 10% 10% 10% 10%;
+    padding: 20px;
+    margin: 100px auto 20px auto;
+}
+.link{
+  color: #1e659f; 
+}
+.link:hover{
+  color: #2196F3;
+}
 .HeadTab {
   position: fixed;
   width: 100vw;
