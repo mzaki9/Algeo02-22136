@@ -78,3 +78,19 @@
     transform: translateY(1px);
     box-shadow: none;
   }
+  .custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #53db34;
+    color: #fff;
+    border-radius: 5px;
+  }
+  .custom-file-upload:hover{
+    background-color: #3b8b29;
+  }
+  
+  #fileList {
+    margin-top: 20px;
+  }
+  

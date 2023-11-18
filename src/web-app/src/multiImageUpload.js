@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import './App.css'
-import './import.css'
+import './pagination.css'
 function MultiImageUpload(){
     const [files, setFile] = useState([]);
     const hiddenFile = useRef(null);
@@ -37,6 +37,12 @@ function MultiImageUpload(){
     };
     return (
       <div>
+        <div style={{position:'relative', top:'100vh', right:'13vw'}}>
+        <label class="custom-file-upload">
+            <input type="file" style={{display:'none'}} onChange={handleFile} multiple/>
+          Upload File
+        </label>
+        </div>
         <div  className="dataBox">
           <div className='uploadDataSetButton'>
             <div onClick={handleClick} style={{cursor:'pointer',opacity:'0.25',left:'0vw',position:'relative'}}>
@@ -83,19 +89,16 @@ function Items({ currentItems}) {
   }
 
 function PaginatedItems({ itemsPerPage, items}) {
-    // Here we use item offsets; we could also use page offsets
-    // following the API or data you're working with.
+  
     const [itemOffset, setItemOffset] = useState(0);
   
-    // Simulate fetching items from another resources.
-    // (This could be items from props; or items loaded in a local state
-    // from an API endpoint with useEffect and useState)
+ 
     const endOffset = itemOffset + itemsPerPage;
     console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     const currentItems = items.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(items.length / itemsPerPage);
   
-    // Invoke when user click to request another page.
+    
     const handlePageClick = (event) => {
       const newOffset = (event.selected * itemsPerPage) % items.length;
       console.log(

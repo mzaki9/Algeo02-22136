@@ -88,6 +88,7 @@
 .dataBox{
   position: relative;
   top: 70vh;
+  left: 0vw;
   width: 800px;
   box-sizing: border-box;
   height: 500px;
@@ -118,6 +119,7 @@
 }
 
 .uploadImageButton{
+  overflow: hidden;
   position: relative;
   height:400px;
   width:400px;

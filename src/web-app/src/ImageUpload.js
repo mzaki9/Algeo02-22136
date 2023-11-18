@@ -1,4 +1,7 @@
 import React, { useRef, useState } from 'react';
+import './App.css'
+import './pagination.css'
+
 function ImageUpload(){
     const [file, setFile] = useState(null);
     const handleFile = async (e)=>{
@@ -26,21 +29,30 @@ function ImageUpload(){
     };
     return (
       <div>
-          <div onClick={handleClick} style={{cursor:'pointer', opacity:'0.25'}}>
-            Upload a file
+         <div style={{position:'relative', top:'20vh', left:'25vw'}}>
+            <label class="custom-file-upload">
+                <input type="file" style={{display:'none', cursor:'pointer'}} onChange={handleFile} />
+                Upload File
+            </label>
           </div>
-          <input
-            type="file"
-            ref = {hiddenFile}
-            style={{display:'none'}}
-            onChange={handleFile}
-          />
-            {file && (
-            <img src={file} alt="Uploaded" style={{position:'relative',
-            minHeight:'240px',minWidth:'240px', maxHeight:'400px',maxWidth:'400px',bottom:'330px'}}/>
+
+          <div className="uploadImageButton">
+            <div onClick={handleClick} style={{cursor:'pointer', opacity:'0.25'}}>
+              Upload a file
+            </div>
+            <input
+              type="file"
+              ref = {hiddenFile}
+              style={{display:'none'}}
+              onChange={handleFile}
+            />
+              {file && (
+              <img src={file} alt="Uploaded" style={{position:'relative',
+              minHeight:'240px',minWidth:'240px', maxHeight:'400px',maxWidth:'400px',bottom:'68vh'}}/>
 
 
-          )}
+            )}
+          </div>
         </div>
     );
 }

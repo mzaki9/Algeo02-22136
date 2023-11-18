@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import './App.css';
-import './import.css';
+import './pagination';
 
 function Search(){
     const [SwitchVal, setSwitchVal] = useState(1); 
@@ -94,9 +94,13 @@ function Search(){
             <button  onClick={searchImg} className="Searchbtn"style={{position:'relative',bottom:'55vh', fontSize:'6vh'}}>
                 SEARCH
             </button>
-            <h3 style={{position:'relative',bottom:'60vh',color:'white',fontSize:'4vh', left:'35vw'}}>
+            <h3 style={{position:'relative',bottom:'71vh',color:'white',fontSize:'4vh', left:'35vw'}}>
+              Result: {tupleList.length} gambar
+            </h3>
+            <h3 style={{position:'relative',bottom:'72vh',color:'white',fontSize:'4vh', left:'35vw'}}>
               time: {timeExec.toFixed(3)} s
             </h3>
+            
             {tupleList.length >0 && ( // Conditionally render only if tupleList has data
                 <PaginatedItems itemsPerPage={3} items={tupleList} data={files} />
               )}
@@ -119,7 +123,7 @@ function Items({ currentItems, data}) {
         alt={item[1].toFixed(3)}
         style={{
           position: 'relative',
-          bottom: '48vh',
+          bottom: '57vh',
           minHeight: '200px',
           minWidth: '200px',
           maxHeight: '280px',
@@ -127,7 +131,7 @@ function Items({ currentItems, data}) {
           marginRight: '40px', // Add some space between images
         }}
       />
-      <p style={{position:'absolute',bottom:'38vh'}}>{item[1].toFixed(3)}%</p>
+      <p style={{position:'absolute',bottom:'46vh'}}>{item[1].toFixed(3)}%</p>
     </div>
   ));
     return (

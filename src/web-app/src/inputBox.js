@@ -4,9 +4,7 @@ class InputBox extends React.Component{
     render() {
         return(
             <div>
-                <div className="uploadImageButton">
-                    <ImageUpload></ImageUpload>
-                </div>
+                <ImageUpload></ImageUpload>
             </div>
         );
     }
