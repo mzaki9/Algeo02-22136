@@ -8,6 +8,7 @@ import Search from './search';
 import AboutUs from './AboutUs';
 import HowToUse from './howToUse';
 import Cbir from './cbir';
+import CameraOn from './cameraOn';
 
 function App() {
   return (
@@ -16,12 +17,14 @@ function App() {
         <div className="HeadTab">
           
           <Link to="/" id="ButtonHead1" className="navbar-button">Home</Link>
+          <Link to="/camera-on" id="ButtonHead1" className="navbar-button">Camera</Link>
           <Link to="/howtouse" id="ButtonHead3" className="navbar-button">How To Use</Link>
           <Link to="/about-us" id="ButtonHead3" className="navbar-button">About Us</Link>
         </div>
         <Routes>
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/howtouse" element={<HowToUse />} />
+          <Route path='/camera-on' element={<CameraOn/>}/>
           <Route path="/cbir" element={<Cbir/>}/>
           <Route path="/" element={
             <>

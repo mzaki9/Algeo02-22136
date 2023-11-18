@@ -1,0 +1,42 @@
+.camera-container{
+  position: relative;
+  top: 30vh;
+  left: 0vw;
+  width: 400px;
+  box-sizing: border-box;
+  height: 300px;
+  background-color: #363a43;
+  border: 3px solid rgba(191, 180, 31, 0.801);
+  outline: none;
+  padding: 10px 14px;
+  border-radius: 10% 10% 10% 10%;
+  text-align: center;
+  opacity: 50%;
+  
+  }
+.start-button{
+  position: relative;
+  left: 450px;
+}
+.stop-button{
+  position: relative;
+  left: 450px;
+}
+.timer{
+  position: relative;
+  left: 450px;
+}
+.boxSnapImage {
+  position: relative;
+  object-fit: cover;
+  top: 40vh;
+  right: 27vw;
+  width: 400px;
+  height: 300px;
+  background-color: #363a43;
+  border: 3px solid #18a56aa4;
+  outline: none;
+  padding: 10px 14px;
+  border-radius: 10% 10% 10% 10%;
+  text-align: center;
+}
