@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import './App.css';
+import './search.css'
 import './pagination';
 
 function Search(){

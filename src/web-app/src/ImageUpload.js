@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
-import './App.css'
-import './pagination.css'
+import './imageUpload.css'
 
 function ImageUpload(){
     const [file, setFile] = useState(null);

@@ -1,0 +1,45 @@
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #53db34;
+    color: #fff;
+    border-radius: 5px;
+  }
+  .custom-file-upload:hover{
+    background-color: #3b8b29;
+  }
+  
+  #fileList {
+    margin-top: 20px;
+  }
+  .dataBox{
+    position: relative;
+    top: 70vh;
+    left: 0vw;
+    width: 800px;
+    box-sizing: border-box;
+    height: 500px;
+    background-color: #363a43;
+    border: 3px solid rgba(146, 31, 191, 0.801);
+    outline: none;
+    padding: 10px 14px;
+    border-radius: 10% 10% 10% 10%;
+    text-align: center;
+  }
+  
+  
+  .dataBox:hover{
+    background-color: #3b3f45d5;
+    border: 5px solid rgba(173, 65, 216, 0.801);
+  }
+  .uploadDataSetButton{
+    position: relative;
+    height:600px;
+    width:800px;
+    bottom: 12vh;
+    text-align: center;
+    line-height: 400px;
+    font-size: calc(10px + 2vmin);
+  }
+  

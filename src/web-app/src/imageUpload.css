@@ -1,0 +1,25 @@
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #53db34;
+    color: #fff;
+    border-radius: 5px;
+  }
+  .custom-file-upload:hover{
+    background-color: #3b8b29;
+  }
+  #fileList {
+    margin-top: 20px;
+  }
+  .uploadImageButton{
+    overflow: hidden;
+    position: relative;
+    height:400px;
+    width:400px;
+    bottom: 12vh;
+    text-align: center;
+    line-height: 400px;
+    font-size: calc(10px + 2vmin);
+  
+  }

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import './App.css'
 import './pagination.css'
+import './multiImageUpload.css'
 function MultiImageUpload(){
     const [files, setFile] = useState([]);
     const hiddenFile = useRef(null);
