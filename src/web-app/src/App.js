@@ -27,7 +27,7 @@ function App() {
             <>
               <h1 style={{position:'relative', top:'20vh'}}> Image Search Engine</h1>
               <div className='doYouKnow' style={{position:'relative', top:'40vh', left:'27vw', fontSize:'3vh'}}>
-                <h2> FunFact !</h2>
+                <h2> Fun Fact !</h2>
                 <p> Search engine pada program ini menggunakan<br></br>
                 algoritma CBIR atau Content-Based Information Retrieval (CBIR).<br></br> Jika ingin mencari tahu lebih lanjut, <br></br>
                   silahkan tekan link di bawah ini</p>
