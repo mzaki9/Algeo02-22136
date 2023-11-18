@@ -6,6 +6,7 @@ import InputBox from './inputBox';
 import DataSetBox from './dataSetBox';
 import Search from './search';
 import AboutUs from './AboutUs';
+import HowToUse from './howToUse';
 
 function App() {
   return (
@@ -14,10 +15,12 @@ function App() {
         <div className="HeadTab">
           <Link to="/" id="ButtonHead1" className="navbar-button">Home</Link>
           <button id="ButtonHead2" className="navbar-button">Camera: Off</button>
+          <Link to="/howtouse" id="ButtonHead3" className="navbar-button">How To Use</Link>
           <Link to="/about-us" id="ButtonHead3" className="navbar-button">About Us</Link>
         </div>
         <Routes>
           <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/howtouse" element={<HowToUse />} />
           <Route path="/" element={
             <>
               <h2 style={{position:'relative',right:'35vw',top:'40vh',color:'white',fontSize:'4vh'}}>
