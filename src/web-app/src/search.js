@@ -8,6 +8,8 @@ function Search(){
     const [timeExec, setTimeExec] = useState(0);
     const [tupleList, setTupleList] = useState([]);
     const [files, setFiles] = useState([]);
+    const [switchState, setSwitchState] = useState(false);
+
 
     const searchImg = async ()=>{
         if (SwitchVal===1){
@@ -58,23 +60,45 @@ function Search(){
         setSwitchVal(SwitchVal*-1);
         console.log(SwitchVal);
     };
+    
+    const handleSwitchToggle = () => {
+      setSwitchState(!switchState); // Toggle the switch state
+      // Perform actions based on the switch state
+      if (!switchState) {
+        setSwitchVal(-1);
+      } else {
+        setSwitchVal(1);
+      }
+      console.log(SwitchVal);
+    };
     return(
         <div>
-            <div style={{position:'relative', bottom:'25vh', right:'38vw'}}>
+            <div style={{position:'relative', bottom:'30vh', right:'38vw'}}>
                 <h3>
                     Switch CBIR mode:
                 </h3>
-            <button onClick={handleSwitchClick} > Switch </button>
+                <h4 style={{position:'relative',bottom:'5vh'}}>
+                  <div style={{right:'5vw',position:'relative', fontSize:'4vh'}}>
+                    tekstur
+                  </div>
+                  <div style={{left:'5vw',position:'relative', bottom:'5vh',fontSize:'4vh'}}>
+                    warna
+                  </div>
+                </h4>
+                <label class="switch" style={{position:'relative', bottom:'12vh'}}>
+                  <input type="checkbox" id="mySwitch" checked={switchState} onChange={handleSwitchToggle}/>
+                  <span class="slider"></span>
+                </label>
             </div>
 
             <button  onClick={searchImg} className="searchButton"style={{position:'relative',bottom:'60vh', fontSize:'6vh'}}>
                 SEARCH
             </button>
-            <h3 style={{position:'relative',bottom:'42vh',color:'white',fontSize:'4vh', left:'35vw'}}>
+            <h3 style={{position:'relative',bottom:'60vh',color:'white',fontSize:'4vh', left:'35vw'}}>
               time: {timeExec.toFixed(3)} s
             </h3>
             {tupleList.length >0 && ( // Conditionally render only if tupleList has data
-                <PaginatedItems itemsPerPage={2} items={tupleList} data={files} />
+                <PaginatedItems itemsPerPage={3} items={tupleList} data={files} />
               )}
         </div>
     );
@@ -89,13 +113,13 @@ function importAll(r) {
 
 function Items({ currentItems, data}) {
   const imageElmt = currentItems.map((item, index) => (
-    <div key={index} style={{ position:'relative', flexWrap:'wrap',left:'30vw'}}>
+    <div key={index} style={{ position:'relative', flexWrap:'wrap',left:'10vw'}}>
       <img
         src={data[item[0]]}
         alt={item[1].toFixed(3)}
         style={{
           position: 'relative',
-          bottom: '35vh',
+          bottom: '48vh',
           minHeight: '200px',
           minWidth: '200px',
           maxHeight: '280px',
@@ -103,7 +127,7 @@ function Items({ currentItems, data}) {
           marginRight: '40px', // Add some space between images
         }}
       />
-      <p style={{position:'absolute',bottom:'25vh'}}>{item[1].toFixed(3)}%</p>
+      <p style={{position:'absolute',bottom:'38vh'}}>{item[1].toFixed(3)}%</p>
     </div>
   ));
     return (
@@ -115,18 +139,14 @@ function Items({ currentItems, data}) {
 
 function PaginatedItems({ itemsPerPage, items, data}) {
 
-    // Here we use item offsets; we could also use page offsets
-    // following the API or data you're working with.
     const [itemOffset, setItemOffset] = useState(0);
-    // Simulate fetching items from another resources.
-    // (This could be items from props; or items loaded in a local state
-    // from an API endpoint with useEffect and useState)
+   
     const endOffset = itemOffset + itemsPerPage;
     console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     const currentItems = items.slice(itemOffset,endOffset);
     const pageCount = Math.ceil(items.length / itemsPerPage);
   
-    // Invoke when user click to request another page.
+   
     const handlePageClick = (event) => {
       const newOffset = (event.selected * itemsPerPage) % items.length;
       console.log(
@@ -139,7 +159,7 @@ function PaginatedItems({ itemsPerPage, items, data}) {
           <div style={{display:'flex', position:'relative'}}>
           <Items currentItems={currentItems} data={data}/>
           </div>
-          <div style={{position:'absolute',top:'76vh',left:'15vw'}}>
+          <div style={{position:'absolute',top:'80vh',left:'15vw'}}>
               <ReactPaginate
                       breakLabel="..."
                       nextLabel="next >"

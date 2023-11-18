@@ -6,6 +6,7 @@ import InputBox from './inputBox';
 import DataSetBox from './dataSetBox';
 import Search from './search';
 import AboutUs from './AboutUs';
+import CameraOn from './cameraOn';
 
 function App() {
   return (
@@ -13,10 +14,11 @@ function App() {
       <div className="App-header">
         <div className="HeadTab">
           <Link to="/" id="ButtonHead1" className="navbar-button">Home</Link>
-          <button id="ButtonHead2" className="navbar-button">Camera: Off</button>
+          <Link to="/camera-on" className="navbar-button">Camera</Link>
           <Link to="/about-us" id="ButtonHead3" className="navbar-button">About Us</Link>
         </div>
         <Routes>
+          <Route path="/camera-on" element={<CameraOn/>}/>
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/" element={
             <>
