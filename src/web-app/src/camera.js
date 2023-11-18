@@ -10,6 +10,7 @@ const Camera = () => {
   const [intervalId, setIntervalId] = useState(null);
   const [showCamera, setShowCamera] = useState(true);
   const [file,setFile] = useState(null);
+  const [switchState, setSwitchState] = useState(false);
 
   const startCamera = async () => {
     try {
@@ -84,11 +85,18 @@ const Camera = () => {
       };
     }
   }, [stream, cameraActive]);
-
+  const handleSwitchToggle = () => {
+    setSwitchState(!switchState);
+    if (!switchState) {
+        startCamera();
+    } else {
+        stopCamera();
+    }
+  };
 
   return (
     <>
-    <h2 style={{position:'relative',top:'175px',left:'140px'}}> camera</h2>
+    <h2 style={{position:'relative',top:'345px',left:'145px'}}> camera</h2>
     <div className='camera-container'>
       {showCamera && (
         <video
@@ -97,11 +105,15 @@ const Camera = () => {
         />
       )}
       </div>
-      <div className='start-button'>
-          <button onClick={startCamera}>Start Camera</button>
-      </div>
-      <div className='stop-button'>
-      <button onClick={stopCamera}>Stop Camera</button>
+      <div style={{position:'relative',left:'440px', top:'100px'}}>
+          <h4 style={{position:'relative',top:'15px',left:'15px',fontSize:'4vh'}}> TURN</h4>
+          <p style={{position:'relative', bottom:'0px',left:'60px'}}>on</p>
+          <p style={{position:'relative', bottom:'49px',right:'0px'}}>off</p>
+      
+      <label class="switch-cam" style={{position:'relative', bottom:'50px'}}>
+          <input type="checkbox" id="mySwitch" checked={switchState} onChange={handleSwitchToggle}/>
+          <span class="slider-cam"></span>
+        </label>
       </div>
       <canvas ref={canvasRef} style={{ display: 'none' }} />
       <div className='timer'>Timer: {timer}</div>
@@ -109,7 +121,7 @@ const Camera = () => {
               The Input Image</h2>
       <div className='boxSnapImage'>
           
-      <img src={file} alt="Uploaded" style={{position:'relative',
+      <img src={file}  style={{position:'relative',
               minHeight:'240px',minWidth:'240px', maxHeight:'350px',maxWidth:'350px',top:'20px'}}/>
       </div>
     </>
