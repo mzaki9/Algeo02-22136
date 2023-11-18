@@ -127,14 +127,6 @@ class CBIRWarnaResource(Resource):
         return jsonify({'results': response_data, 'execution_time': execution_time})
 
 
-
-
-# Add resources to the API
-api.add_resource(CBIRWarnaResource, '/cbirwarna')
-api.add_resource(CBIRTextureResource, '/cbirtexture')
-api.add_resource(ImageUploadResource, '/upload')
-api.add_resource(MultiImageResource,'/multiupload')
-
 if __name__ == '__main__':
     app.run(debug=True)
 
@@ -253,7 +245,7 @@ def process_image(args):
 
 
 
-#PERHITUNGAN CBIIR TEXTURE
+#    PERHITUNGAN CBIR TEXTURE    
 
 def compress_image(image, compression_scale=0.75, quality=85):
     # Mengkompresi gambar dengan skala tertentu
@@ -369,8 +361,6 @@ def calculateDissimilarity(glcmNorm):
     dissimilarity = np.sum(np.abs(i - j) * glcmNorm)
     return dissimilarity
 
-
-
 def calculateASM(glcmNorm):
     # Hitung ASM
     asm = np.sum(glcmNorm ** 2)
@@ -380,4 +370,10 @@ def calculateEnergy(asm):
     # Hitung energy
     energy = np.sqrt(asm)
     return energy
+
+# Add resources to the API
+api.add_resource(CBIRWarnaResource, '/cbirwarna')
+api.add_resource(CBIRTextureResource, '/cbirtexture')
+api.add_resource(ImageUploadResource, '/upload')
+api.add_resource(MultiImageResource,'/multiupload')
 
