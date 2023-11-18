@@ -16,7 +16,6 @@ function App() {
         <div className="HeadTab">
           <Link to="/" id="ButtonHead1" className="navbar-button">Home</Link>
           <Link to="/camera-on" className="navbar-button">Camera</Link>
-          <button id="ButtonHead2" className="navbar-button">Camera: Off</button>
           <Link to="/howtouse" id="ButtonHead3" className="navbar-button">How To Use</Link>
           <Link to="/about-us" id="ButtonHead3" className="navbar-button">About Us</Link>
         </div>

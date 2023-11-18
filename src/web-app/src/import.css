@@ -1,11 +1,5 @@
 /* styles.css */
-.searchButton{
-  background-color: aliceblue;
-}
-.searchButton:hover{
-  background-color: #7d7c7c;
 
-}
 
 .container {
     width: 500px; 
@@ -58,4 +52,29 @@
   
   .page-item:hover .page-link {
     background-color: #7d7c7c;
+  }
+  .Searchbtn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  }
+  
+  .Searchbtn:hover {
+    background-color: #0b4871;
+    transform: translateY(-2px);
+  }
+  
+  .Searchbtn:active {
+    background-color: #0b4871;
+    transform: translateY(1px);
+    box-shadow: none;
   }

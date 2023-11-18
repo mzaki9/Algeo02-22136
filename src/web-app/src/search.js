@@ -91,7 +91,7 @@ function Search(){
                 </label>
             </div>
 
-            <button  onClick={searchImg} className="searchButton"style={{position:'relative',bottom:'60vh', fontSize:'6vh'}}>
+            <button  onClick={searchImg} className="Searchbtn"style={{position:'relative',bottom:'55vh', fontSize:'6vh'}}>
                 SEARCH
             </button>
             <h3 style={{position:'relative',bottom:'60vh',color:'white',fontSize:'4vh', left:'35vw'}}>
@@ -159,7 +159,7 @@ function PaginatedItems({ itemsPerPage, items, data}) {
           <div style={{display:'flex', position:'relative'}}>
           <Items currentItems={currentItems} data={data}/>
           </div>
-          <div style={{position:'absolute',top:'80vh',left:'15vw'}}>
+          <div style={{position:'absolute',top:'83vh',left:'12vw'}}>
               <ReactPaginate
                       breakLabel="..."
                       nextLabel="next >"
