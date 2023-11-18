@@ -1,0 +1,26 @@
+.how-to-use-container {
+    background-color: #1c1c2774;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    padding: 20px;
+    margin: 100px auto 20px auto;
+  }
+  
+  .how-to-use-container h1 {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+    color: #d6c6c6;
+    font-family: 'Helvetica', sans-serif;
+    text-align: center;
+  }
+  
+  .how-to-use-container p {
+    font-size: 1em;
+    line-height: 1.2;
+    margin-bottom: 1em;
+    color: #d6c6c6;;
+    font-family: 'Helvetica', sans-serif;
+    text-indent: 20px;
+  }
+  

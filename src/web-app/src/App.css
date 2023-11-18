@@ -33,7 +33,7 @@
   color: rgba(255, 255, 255, 0.8);
   border: none;
   background-color: #18a56a;
-  font-size: 25px;
+  font-size: 20px;
   padding: 5px 10px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
@@ -69,7 +69,7 @@
 
 .boxInputImage {
   position: relative;
-  overflow: hidden;
+  object-fit: cover;
   top: 40vh;
   right: 27vw;
   width: 400px;
@@ -99,10 +99,12 @@
   text-align: center;
 }
 
+
 .dataBox:hover{
   background-color: #3b3f45d5;
   border: 5px solid rgba(173, 65, 216, 0.801);
 }
+
 .resultBox {
   position: relative;
   top: 150vh;
@@ -133,8 +135,8 @@
   text-align: center;
   line-height: 400px;
   font-size: calc(10px + 2vmin);
-
 }
+
 .App-link {
   color: #61dafb;
 }
