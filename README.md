@@ -17,6 +17,7 @@ Content-Based Image Retrieval (CBIR) adalah sebuah proses yang digunakan untuk m
 - numpy - version 1.26.2
 - python - version 3.11.1
 - opencv-python - version 4.8.1.78
+- React - version 18.2.0
 
 ## Features
  - Program ini dapat mencari similarity image dengan metode CBIR Texture
