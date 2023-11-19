@@ -17,13 +17,14 @@
 }
 .doYouKnow{
     width: auto;
-    height: 40vh;
+    height: 250px;
     border: 1px solid white;
     background-color: #1a1d22;
     overflow: hidden;
-    border-radius: 10% 10% 10% 10%;
+    border-radius: 10%;
     padding: 20px;
-    margin: 100px auto 20px auto;
+    margin: 10px auto 20px auto;
+    margin-left: 200px;
 }
 .link{
   color: #1e659f; 
@@ -33,10 +34,10 @@
 }
 .HeadTab {
   position: fixed;
-  width: 100vw;
+  width: 1500px;
   top: 0px;
   background-color: #18a56a;
-  min-height: 15vh;
+  min-height: 100px;
   z-index: 2;
   display: flex;
   justify-content: center; 
