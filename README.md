@@ -20,7 +20,9 @@
     or you can checkout this link ! https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project
 2. Go to src/web-app/src
 
-    >cd ../src/web-app/src
+    ```bash
+    cd ../src/web-app/src
+    ```
 <br>
 
 3. Activate the virtual environment (optional):
@@ -45,19 +47,19 @@
 5. start localhost server to open the website
 
     ```bash
-    > npm install (optional) <br>
-    > npm start
+    npm install 
+    npm install --global yarn
      ```
    
 6. back to folder web-app and open two terminal<br>
 
-    ```bash
-    a. Terminal 1:
-
-    > yarn start
     
+    a. Terminal 1:
+    ```bash
+     yarn start
+    ``````
     b. Terminal 2: 
-
-    > yarn start-api
+    ```bash
+    yarn start-api
       ```
 
