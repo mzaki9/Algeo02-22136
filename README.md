@@ -5,10 +5,20 @@
 | 13522136 | Muhammad Zaki |
 | 13522149 | Muhammad Dzaki Arta |
 
-## Foto
-![](src/fotobareng.jpg)
 
-## Deskripsi Program
+## General Information
+Content-Based Image Retrieval (CBIR) adalah sebuah proses yang digunakan untuk mencari dan mengambil gambar berdasarkan kontennya. Proses ini dimulai dengan ekstraksi fitur-fitur penting dari gambar, seperti warna, tekstur, dan bentuk. Setelah fitur-fitur tersebut diekstraksi, mereka diwakili dalam bentuk vektor atau deskripsi numerik yang dapat dibandingkan dengan gambar lain. Kemudian, CBIR menggunakan algoritma pencocokan untuk membandingkan vektor-fitur dari gambar yang dicari dengan vektor-fitur gambar dalam dataset
+
+## Foto
+![](img/fotobareng.jpg)
+
+## Technologies Used
+- Flask - version 3.0.0
+- numpy - version 1.26.2
+- python - version 3.11.1
+- opencv-python - version 4.8.1.78
+
+## Features
  - Program ini dapat mencari similarity image dengan metode CBIR Texture
  - Program ini dapat mencari similarity image dengan metode CBIR Colour
  - Program ini dapat mencari similarity image dengan input dari kamera
@@ -62,4 +72,11 @@
     ```bash
     yarn start-api
       ```
+
+## Room for improvement:
+- Improvement to UI/UX
+- Improvement to much efficient and accurate algorithm
+
+## To do:
+- Add cache
 
