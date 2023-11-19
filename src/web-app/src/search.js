@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import './search.css'
-import './pagination';
+import './pagination.css';
 
 function Search(){
     const [SwitchVal, setSwitchVal] = useState(1); 
