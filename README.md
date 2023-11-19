@@ -5,6 +5,9 @@
 | 13522136 | Muhammad Zaki |
 | 13522149 | Muhammad Dzaki Arta |
 
+## Foto
+![](src/fotobareng.jpg)
+
 ## Deskripsi Program
  - Program ini dapat mencari similarity image dengan metode CBIR Texture
  - Program ini dapat mencari similarity image dengan metode CBIR Colour
@@ -57,4 +60,4 @@
 
     > yarn start-api
       ```
-## Foto
+
