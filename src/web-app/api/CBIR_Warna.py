@@ -91,9 +91,20 @@ def quantify(h,s,v):
 
 
 def create_submatrices(matrix):
-    return [matrix[i:i+matrix.shape[0]//4, j:j+matrix.shape[1]//4]
-            for i in range(0, matrix.shape[0], matrix.shape[0]//4)
-            for j in range(0, matrix.shape[1], matrix.shape[1]//4)]
+    batas_baris = matrix.shape[0] // 4
+    batas_kolom = matrix.shape[1] // 4
+    submatrices = []
+
+    for i in range(4):
+        for j in range(4):
+            if (i == 3 and j == 3):
+                submatrices.append(matrix[i*batas_baris:, j*batas_kolom:])
+            elif(i == 3):
+                submatrices.append(matrix[i*batas_baris:, j*batas_kolom:(j+1)*batas_kolom])
+            else:
+                submatrices.append(matrix[i*batas_baris:(i+1)*batas_baris, j*batas_kolom:(j+1)*batas_kolom])
+
+    return submatrices
 
 def cosinesim(vector_A, vector_B):
     dot_product = np.dot(vector_A, vector_B)
