@@ -19,8 +19,8 @@ membentuk histogram dengan interval sebagai bin, termasuk fitur global dan blok.
  <h2> Parameter Tekstur</h2>
  <p>CBIR ini menggunakan co-occurrence matrix untuk membandingkan tekstur dengan pemrosesan cepat.
      Matriks ini terbentuk dari gambar I dengan n × m piksel dan parameter offset (Δx,Δy). 
-     Dari matriks ini, diekstraksi 5 
-     komponen tekstur: contrast, entropy,homogeneity,ASM,dan Energy. Vektor yang dihasilkan dari kelima komponen 
+     Dari matriks ini, diekstraksi 6 
+     komponen tekstur: contrast, entropy,homogeneity,ASM,Energy, dan Dissimilarity. Vektor yang dihasilkan dari kelima komponen 
      ini digunakan untuk mengukur kemiripan antara gambar. Kemiripan diukur menggunakan Teorema Cosine Similarity
       dalam proses perbandingan gambar.</p>
         </div>
