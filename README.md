@@ -1,5 +1,16 @@
 # Algeo02-22136
+| NIM | Nama |
+| :---: | :---: |
+| 13522150 | Albert Ghazaly |
+| 13522136 | Muhammad Zaki |
+| 13522149 | Muhammad Dzaki Arta |
 
+## Deskripsi Program
+ - Program ini dapat mencari similarity image dengan metode CBIR Texture
+ - Program ini dapat mencari similarity image dengan metode CBIR Colour
+ - Program ini dapat mencari similarity image dengan input dari kamera
+ - Program ini dapat mencari similarity image dengan input dari file
+   
 ## How to Use
 1. Make sure to already have all libraries needed,  
 
@@ -30,14 +41,20 @@
     ```
 5. start localhost server to open the website
 
+    ```bash
     > npm install (optional) <br>
     > npm start
+     ```
    
 6. back to folder web-app and open two terminal<br>
+
+    ```bash
     a. Terminal 1:
 
-    > yarn start 
-
+    > yarn start
+    
     b. Terminal 2: 
 
     > yarn start-api
+      ```
+## Foto
